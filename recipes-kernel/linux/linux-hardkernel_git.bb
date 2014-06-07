@@ -12,7 +12,7 @@ inherit kernel siteinfo
 # from where to fetch the kernel
 KERNEL_REPO_OWNER ??= "hardkernel"
 KERNEL_REPO_URI ??= "git://github.com/${KERNEL_REPO_OWNER}/linux.git"
-KBRANCH ?= "odroidxu-3.4.y"
+KBRANCH ?= "odroid-3.8.y"
 
 SRC_URI = " \
   ${KERNEL_REPO_URI};branch=${KBRANCH} \
@@ -22,7 +22,7 @@ S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
 
-KV = "3.4.91"
+KV = "3.8.91"
 PV = "${KV}+gitr${SRCPV}"
 LOCALVERSION ?= ""
 
