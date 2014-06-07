@@ -1,18 +1,18 @@
-DESCRIPTION = "Linux kernel for the Hardkernel ODROID-U2 device"
+DESCRIPTION = "Linux kernel for the Hardkernel ODROID-XU device"
 SECTION = "kernel"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
 
 # Mark archs/machines that this kernel supports
-COMPATIBLE_MACHINE = "odroid-u2"
+COMPATIBLE_MACHINE = "odroid-xu"
 
 inherit kernel siteinfo
 
 # from where to fetch the kernel
 KERNEL_REPO_OWNER ??= "hardkernel"
 KERNEL_REPO_URI ??= "git://github.com/${KERNEL_REPO_OWNER}/linux.git"
-KBRANCH ?= "odroid-3.8.y"
+KBRANCH ?= "odroidxu-3.4.y"
 
 SRC_URI = " \
   ${KERNEL_REPO_URI};branch=${KBRANCH} \
@@ -22,9 +22,9 @@ S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
 
-#KV = "3.4.91"
-#PV = "${KV}+gitr${SRCPV}"
-#LOCALVERSION ?= ""
+KV = "3.4.91"
+PV = "${KV}+gitr${SRCPV}"
+LOCALVERSION ?= ""
 
 # stolen from meta-oe's linux.inc
 #kernel_conf_variable CMDLINE "\"${CMDLINE} ${CMDLINE_DEBUG}\""
