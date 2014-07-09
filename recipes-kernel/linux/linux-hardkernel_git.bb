@@ -16,15 +16,16 @@ KBRANCH ?= "odroid-3.8.y"
 
 SRC_URI = " \
   ${KERNEL_REPO_URI};branch=${KBRANCH} \
+  file://defconfig \
 "
 
 S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
 
-#KV = "3.4.91"
-#PV = "${KV}+gitr${SRCPV}"
-#LOCALVERSION ?= ""
+KV = "3.8.13"
+PV = "${KV}+gitr${SRCPV}"
+LOCALVERSION ?= ""
 
 # stolen from meta-oe's linux.inc
 #kernel_conf_variable CMDLINE "\"${CMDLINE} ${CMDLINE_DEBUG}\""
