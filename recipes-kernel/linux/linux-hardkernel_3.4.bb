@@ -24,4 +24,5 @@ PV = "${LINUX_VERSION}"
 SRC_URI = " \
   ${KERNEL_REPO_URI};nocheckout=1;branch=${KBRANCH} \
   file://defconfig \
+  file://fix-broken-creation-of-arch-release-symlink.patch \
 "
