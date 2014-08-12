@@ -10,4 +10,4 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 S = "${WORKDIR}/git"
 
-UBOOT_SUFFIX = "img"
+UBOOT_SUFFIX = "bin"

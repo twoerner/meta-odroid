@@ -18,11 +18,22 @@ KBRANCH = "odroidxu-3.4.y"
 
 SRCREV = "${AUTOREV}"
 
-PR = "r1"
+PR = "r2"
 PV = "${LINUX_VERSION}"
 
 SRC_URI = " \
   ${KERNEL_REPO_URI};nocheckout=1;branch=${KBRANCH} \
   file://defconfig \
-  file://fix-broken-creation-of-arch-release-symlink.patch \
+  file://make_sd.sh \
 "
+
+do_deploy_append() {
+    install -d ${DEPLOYDIR}		   
+    cd ${S}/tools/hardkernel/u-boot-pre-built		
+    cp -v *bl1* ${DEPLOYDIR}
+    cp -v *bl2* ${DEPLOYDIR}
+    cp -v u-boot.bin ${DEPLOYDIR}
+    cp -v *tzsw* ${DEPLOYDIR}
+    cp -v sd_fusing.sh ${DEPLOYDIR}  
+    cp -v ${WORKDIR}/make_sd.sh ${DEPLOYDIR}
+}
