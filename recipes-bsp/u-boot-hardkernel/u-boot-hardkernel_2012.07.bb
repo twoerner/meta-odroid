@@ -1,4 +1,4 @@
-require u-boot.inc
+require recipes-bsp/u-boot/u-boot.inc
 
 DESCRIPTION = "U-Boot-Hardkernel - git repo"
 HOMEPAGE = "http://hardkernel.com"
@@ -24,6 +24,7 @@ SRC_URI = " \
 S = "${WORKDIR}/git"
 SRCREV = "${AUTOREV}"
 
+UBOOT_SUFFIX = "bin"
 
 do_deploy_append () {
     install -d ${DEPLOYDIR}
@@ -33,3 +34,5 @@ do_deploy_append () {
     cp -v ${WORKDIR}/*tzsw* ${DEPLOYDIR}
     cp -v ${WORKDIR}/sd_fusing.sh ${DEPLOYDIR}
 }
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
