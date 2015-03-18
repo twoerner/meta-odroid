@@ -35,4 +35,6 @@ do_deploy_append () {
     cp -v ${WORKDIR}/sd_fusing.sh ${DEPLOYDIR}
 }
 
+COMPATIBLE_MACHINE = "(odroid-xu)"
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
