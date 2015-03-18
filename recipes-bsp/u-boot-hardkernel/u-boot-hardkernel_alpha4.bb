@@ -6,6 +6,8 @@ LICENSE = "GPLv2"
 
 PR = "r1"
 
+PNBLACKLIST[u-boot-hardkernel] ?= "BROKEN: download source doesn't exist; COMPATIBLE_MACHINE isn't specified"
+
 inherit deploy
 
 LIC_FILES_CHKSUM = "file://sd_fusing.sh;md5=9343188afe21ccc8e061d6f0fe9a8fd9;endline=10"
