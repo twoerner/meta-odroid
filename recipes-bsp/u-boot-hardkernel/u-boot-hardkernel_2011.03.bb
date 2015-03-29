@@ -1,6 +1,3 @@
-# XXX Known issue:
-# There is a problem with resulting binary, so the prebuilt one is used, see below.
-
 require recipes-bsp/u-boot/u-boot.inc
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
@@ -15,8 +12,10 @@ PV = "v2011.03+git${SRCPV}"
 SRC_URI = " \
     ${UBOOT_REPO_URI};branch=${UBOOT_BRANCH} \
     file://0001-ucl-use-host-compiler-supplied-by-OE.patch \
-    file://u-boot.bin \
+    file://0003-use-lldiv-for-64-bit-division.patch \
 "
+# check for hardfp
+SRC_URI_append = " ${@bb.utils.contains('TUNE_FEATURES','callconvention-hard',' file://0002-added-hardfp-support.patch ','',d)}"
 
 EXTRA_OEMAKE += 'HOSTCC="${BUILD_CC}"'
 
@@ -45,9 +44,3 @@ COMPATIBLE_MACHINE = "(odroid-c1)"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-# XXX The part below is here only because of problems with OE compiled version
-# Also remove u-boot.bin from SRC_URI and from files/ when it will be fixed
-do_compile () {
-    bbwarn "Currently the u-boot build is broken (resulting binary crashes), so prebuilt binary is used (do you trust that binary?)."
-    cp -v ${WORKDIR}/u-boot.bin ${B}/sd_fuse/${UBOOT_BINARY}
-}
