@@ -10,6 +10,9 @@ COMPATIBLE_MACHINE = "(odroid-u2|odroid-c1)"
 
 inherit kernel siteinfo
 
+# For device tree
+require recipes-kernel/linux/linux-dtb.inc
+
 # from where to fetch the kernel
 KERNEL_REPO_OWNER ??= "hardkernel"
 KERNEL_REPO_URI ??= "git://github.com/${KERNEL_REPO_OWNER}/linux.git"
@@ -21,6 +24,10 @@ SRC_URI = " \
   file://defconfig \
 "
 
+SRC_URI_append_odroid-c1 = " \
+     file://0001-Revert-amlogic-s-dtb-make-modification.patch \
+"
+
 S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
@@ -30,6 +37,8 @@ KV = "3.8.13"
 KV_odroid-c1 = "3.10.70"
 PV = "${KV}+gitr${SRCPV}"
 LOCALVERSION ?= ""
+
+PR="r1"
 
 # stolen from meta-oe's linux.inc
 #kernel_conf_variable CMDLINE "\"${CMDLINE} ${CMDLINE_DEBUG}\""

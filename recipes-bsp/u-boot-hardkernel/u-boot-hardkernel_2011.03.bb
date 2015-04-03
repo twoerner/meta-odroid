@@ -8,12 +8,21 @@ UBOOT_BRANCH ?= "odroidc-v2011.03"
 SRCREV = "f631c80969b33b796d2d4c077428b4765393ed2b"
 
 PV = "v2011.03+git${SRCPV}"
+PR = "r4"
+
+PROVIDES = "u-boot ${PN}-config"
+PACKAGES =+ "u-boot-ini"
 
 SRC_URI = " \
     ${UBOOT_REPO_URI};branch=${UBOOT_BRANCH} \
     file://0001-ucl-use-host-compiler-supplied-by-OE.patch \
     file://0003-use-lldiv-for-64-bit-division.patch \
 "
+
+SRC_URI_append_odroid-c1 = " \
+    file://boot.ini \
+"
+
 # check for hardfp
 SRC_URI_append = " ${@bb.utils.contains('TUNE_FEATURES','callconvention-hard',' file://0002-added-hardfp-support.patch ','',d)}"
 
@@ -31,14 +40,20 @@ BL1_IMAGE ?= "bl1-${MACHINE}-${PV}-${PR}.${BL1_SUFFIX}"
 BL1_BINARY ?= "bl1.${BL1_SUFFIX}"
 BL1_SYMLINK ?= "bl1-${MACHINE}.${BL1_SUFFIX}"
 
-do_deploy_append () {
+do_install_append () {
     install ${S}/sd_fuse/${BL1_BINARY} ${DEPLOYDIR}/${BL1_IMAGE}
 
     cd ${DEPLOYDIR}
     rm -f ${BL1_BINARY} ${BL1_SYMLINK}
     ln -sf ${BL1_IMAGE} ${BL1_SYMLINK}
     ln -sf ${BL1_IMAGE} ${BL1_BINARY}
+
+    install -d ${D}/boot/
+    install ${WORKDIR}/boot.ini ${D}/boot/boot.ini
 }
+
+FILES_u-boot-ini = "/boot/boot.ini \
+"
 
 COMPATIBLE_MACHINE = "(odroid-c1)"
 
