@@ -8,7 +8,7 @@ UBOOT_BRANCH ?= "odroidc-v2011.03"
 SRCREV = "f631c80969b33b796d2d4c077428b4765393ed2b"
 
 PV = "v2011.03+git${SRCPV}"
-PR = "r4"
+PR = "r5"
 
 PROVIDES = "u-boot ${PN}-config"
 PACKAGES =+ "u-boot-ini"
@@ -54,6 +54,7 @@ do_install_append () {
 
 FILES_u-boot-ini = "/boot/boot.ini \
 "
+CONFFILES_u-boot-ini = "/boot/boot.ini"
 
 COMPATIBLE_MACHINE = "(odroid-c1)"
 
