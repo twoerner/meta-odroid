@@ -134,5 +134,10 @@ do_deploy_append_odroid-u2() {
     cp -v *.scr ${DEPLOYDIR}
 }
 
-PACKAGES =+ "kernel-headers"
+PACKAGES =+ "kernel-dbg kernel-headers"
+FILES_kernel-dbg =+ " \
+        ${exec_prefix}/src/kernel/drivers/amlogic/*/.debug \
+        ${exec_prefix}/src/kernel/drivers/amlogic/*/*/.debug \
+        ${exec_prefix}/src/kernel/drivers/amlogic/*/*/*/.debug \
+"
 FILES_kernel-headers = "${exec_prefix}/src/linux*"
