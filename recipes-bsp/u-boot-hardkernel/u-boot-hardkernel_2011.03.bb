@@ -8,7 +8,7 @@ UBOOT_BRANCH ?= "odroidc-v2011.03"
 SRCREV = "f631c80969b33b796d2d4c077428b4765393ed2b"
 
 PV = "v2011.03+git${SRCPV}"
-PR = "r5"
+PR = "r6"
 
 PROVIDES = "u-boot ${PN}-config"
 PACKAGES =+ "u-boot-ini"
@@ -41,15 +41,17 @@ BL1_BINARY ?= "bl1.${BL1_SUFFIX}"
 BL1_SYMLINK ?= "bl1-${MACHINE}.${BL1_SUFFIX}"
 
 do_install_append () {
+    install -d ${D}/boot/
+    install ${WORKDIR}/boot.ini ${D}/boot/boot.ini
+}
+
+do_deploy_append () {
     install ${S}/sd_fuse/${BL1_BINARY} ${DEPLOYDIR}/${BL1_IMAGE}
 
     cd ${DEPLOYDIR}
     rm -f ${BL1_BINARY} ${BL1_SYMLINK}
     ln -sf ${BL1_IMAGE} ${BL1_SYMLINK}
     ln -sf ${BL1_IMAGE} ${BL1_BINARY}
-
-    install -d ${D}/boot/
-    install ${WORKDIR}/boot.ini ${D}/boot/boot.ini
 }
 
 FILES_u-boot-ini = "/boot/boot.ini \
