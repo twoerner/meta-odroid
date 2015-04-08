@@ -8,9 +8,9 @@ UBOOT_BRANCH ?= "odroidc-v2011.03"
 SRCREV = "f631c80969b33b796d2d4c077428b4765393ed2b"
 
 PV = "v2011.03+git${SRCPV}"
-PR = "r6"
+PR = "r7"
 
-PROVIDES = "u-boot ${PN}-config"
+PROVIDES =+ "u-boot ${PN}-config"
 PACKAGES =+ "u-boot-ini"
 
 SRC_URI = " \
