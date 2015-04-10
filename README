@@ -1,12 +1,21 @@
 OpenEmbedded BSP layer for hardkernel ODROID devices
+
+ODROID-C1 IS STILL WORK IN PROGRESS
+
 This layer depends on:
 
-URI: git://github.com/openembedded/oe-core.git
+URI: git://git.openembedded.org/openembedded-core
 layers: meta
-branch: dylan
+branch: dizzy
 revision: HEAD
 
 If you want to contribute changes, please send me pull
 requests via github.
 
-Main layer maintainer: Reinhard Tartler <siretart@tauware.de>
+ODROID-C1 support:
+	* Christian Ege <k4230r6@gmail.com>
+	* Tomas Novotny <tomas.novotny@tbs-biometrics.com>
+
+Short history:
+Based on meta-odroid from MarkusEich <markus.eich@gmail.com>,
+which was based on meta-odroid by Reinhard Tartler <siretart@tauware.de>
