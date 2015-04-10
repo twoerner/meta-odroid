@@ -1,31 +1,44 @@
-DESCRIPTION = "Linux kernel for the Hardkernel ODROID-U2 device"
+DESCRIPTION = "Linux kernel for the Hardkernel ODROID devices"
 SECTION = "kernel"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
+DEPENDS = "lzop-native"
 
 # Mark archs/machines that this kernel supports
-COMPATIBLE_MACHINE = "odroid-u2"
+COMPATIBLE_MACHINE = "(odroid-u2|odroid-c1)"
 
 inherit kernel siteinfo
+
+# For device tree
+require recipes-kernel/linux/linux-dtb.inc
 
 # from where to fetch the kernel
 KERNEL_REPO_OWNER ??= "hardkernel"
 KERNEL_REPO_URI ??= "git://github.com/${KERNEL_REPO_OWNER}/linux.git"
 KBRANCH ?= "odroid-3.8.y"
+KBRANCH_odroid-c1 ?= "odroidc-3.10.y"
 
 SRC_URI = " \
   ${KERNEL_REPO_URI};branch=${KBRANCH} \
   file://defconfig \
 "
 
+SRC_URI_append_odroid-c1 = " \
+     file://0001-Revert-amlogic-s-dtb-make-modification.patch \
+"
+
 S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
+SRCREV_odroid-c1 = "c193f5d80656ce6d471cf3a28fe8259b3e3a02c0"
 
 KV = "3.8.13"
+KV_odroid-c1 = "3.10.70"
 PV = "${KV}+gitr${SRCPV}"
 LOCALVERSION ?= ""
+
+PR="r1"
 
 # stolen from meta-oe's linux.inc
 #kernel_conf_variable CMDLINE "\"${CMDLINE} ${CMDLINE_DEBUG}\""
@@ -39,7 +52,7 @@ kernel_conf_variable() {
     fi
 }
 
-do_configure_prepend() {
+do_configure_prepend_odroid-u2() {
      yes '' | oe_runmake odroidu2_defconfig
     CONF_SED_SCRIPT=""
 
@@ -111,15 +124,20 @@ do_configure_prepend() {
     yes '' | oe_runmake oldconfig
 }
 
-do_install_append() {
+do_install_append_odroid-u2() {
     # Helper script provided by Mauro Ribeiro
     tools/hardkernel/genBscr.sh
     oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
 }
 
-do_deploy_append() {
+do_deploy_append_odroid-u2() {
     cp -v *.scr ${DEPLOYDIR}
 }
 
-PACKAGES =+ "kernel-headers"
+PACKAGES =+ "kernel-dbg kernel-headers"
+FILES_kernel-dbg =+ " \
+        ${exec_prefix}/src/kernel/drivers/amlogic/*/.debug \
+        ${exec_prefix}/src/kernel/drivers/amlogic/*/*/.debug \
+        ${exec_prefix}/src/kernel/drivers/amlogic/*/*/*/.debug \
+"
 FILES_kernel-headers = "${exec_prefix}/src/linux*"
