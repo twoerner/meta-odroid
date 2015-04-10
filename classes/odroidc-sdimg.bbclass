@@ -57,7 +57,7 @@ UBOOT_SUFFIX ?= "bin"
 UBOOT_SYMLINK ?= "u-boot-${MACHINE}.${UBOOT_SUFFIX}"
 
 # SD card image name
-SDIMG = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sdimg"
+SDIMG = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.odroidc-sdimg"
 
 IMAGE_CMD_odroidc-sdimg () {
 
