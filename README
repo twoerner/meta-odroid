@@ -1,21 +1,18 @@
-CURRENT STATUS: This layer is not actively maintained anymore. ODROID-C1 support is now handled in the layer https://github.com/linux-meson/meta-amlogic .
-
 OpenEmbedded BSP layer for hardkernel ODROID devices
 
 Status of support devices:
 ODROID-C1: SD card image works (it is tested with core-image-minimal)
 ODROID-U2: Not tested after the fork
 ODROID-XU: ditto
+ODROID-UX3: tested
 
 This layer depends on:
 
 URI: git://git.openembedded.org/openembedded-core
 layers: meta
-branch: dizzy
+branch: master
 revision: HEAD
 
-If you want to contribute changes, please send me pull
-requests via github.
 
 ODROID-C1 support:
 	* Christian Ege <k4230r6@gmail.com>
