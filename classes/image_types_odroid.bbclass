@@ -2,17 +2,8 @@ inherit image_types
 
 # Heavly influenced by image_types_fsl.bblcass 
 
-#Number  Start   End     Size    Type     File system  Flags
-# 1      1573kB  136MB   135MB   primary  fat16
-# 2      136MB   5589MB  5453MB  primary  ext4
-#Device Boot      Start         End      Blocks   Id  System
-#/dev/mmcblk0p1            2048      206847      102400    6  FAT16
-#/dev/mmcblk0p2          206848    15523839     7658496   83  Linux
 
-
-# Heavly influenced by image_types_fsl.bblcass 
-
-IMAGE_BOOTLOADER ?= "u-boot"
+IMAGE_BOOTLOADER ?= "secure-odroid-ux3"
 
 # Handle u-boot suffixes
 UBOOT_SUFFIX ?= "bin"
@@ -87,17 +78,21 @@ generate_odroid_ux3_sdcard () {
     parted -s ${SDCARD} mklabel msdos
     # Create boot partition and mark it as bootable
     parted -s ${SDCARD} unit KiB mkpart primary fat16 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
-    #parted -s ${SDCARD} set 1 boot on
     # Create rootfs partition to the end of disk
     parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
     parted ${SDCARD} print
                             
 	case "${IMAGE_BOOTLOADER}" in
-		u-boot)
+		secure-odroid-ux3)
             dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
             dd if=${DEPLOY_DIR_IMAGE}/bl2.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B2_POS}
             dd if=${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc seek=${UBOOT_BIN_POS}
             dd if=${DEPLOY_DIR_IMAGE}/tzsw.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_TZSW_POS}
+            dd if=/dev/zero of=${SDCARD} seek=${UBOOT_ENV_POS} conv=notrunc count=32 bs=512
+		;;
+		u-boot)
+            dd if=${DEPLOY_DIR_IMAGE}/u-boot-spl.bin of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
+            dd if=${DEPLOY_DIR_IMAGE}/u-boot.img of=${SDCARD} conv=notrunc seek=${UBOOT_BIN_POS}
             dd if=/dev/zero of=${SDCARD} seek=${UBOOT_ENV_POS} conv=notrunc count=32 bs=512
 		;;
 
@@ -112,7 +107,7 @@ generate_odroid_ux3_sdcard () {
         | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 1024 }')
     echo "boot.img blocks ${BOOT_BLOCKS}"
 
-    mkfs.vfat -n "BOOTDD_VOLUME_ID" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
+    mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
 
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::/${KERNEL_IMAGETYPE}
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-exynos5422-odroidxu3.dtb ::/exynos5422-odroidxu3.dtb
