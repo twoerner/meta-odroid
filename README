@@ -5,6 +5,7 @@ ODROID-C1: SD card image works (it is tested with core-image-minimal)
 ODROID-U2: Not tested after the fork
 ODROID-XU: ditto
 ODROID-UX3: tested
+ODROID-UX4: untested but compat with UX3
 
 This layer depends on:
 
@@ -13,6 +14,15 @@ layers: meta
 branch: master
 revision: HEAD
 
+Maintenance
+-----------
+
+Send pull requests, patches, comments or questions to yocto@yoctoproject.org
+
+When sending single patches, please using something like:
+'git send-email -1 -M --to akuster808@gmail.com --subject-prefix=meta-odroid][PATCH'
+
+Layer Maintainer:  Armin Kuster <akuster808@gmail.com>
 
 ODROID-C1 support:
 	* Christian Ege <k4230r6@gmail.com>
