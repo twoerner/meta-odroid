@@ -17,13 +17,4 @@ PR = "${PV}+git${SRCPV}"
 
 UBOOT_SUFFIX ?= "bin"
 
-do_deploy_append () {
-    install -d ${DEPLOYDIR}
-    cp -v ${WORKDIR}/*bl1* ${DEPLOYDIR}
-    cp -v ${WORKDIR}/boot.ini ${DEPLOYDIR}
-    cp -v ${WORKDIR}/*bl2* ${DEPLOYDIR}
-    cp -v ${WORKDIR}/*tzsw* ${DEPLOYDIR}
-    cp -v ${WORKDIR}/sd_fusing.sh ${DEPLOYDIR}
-}
-
 PACKAGE_ARCH = "${MACHINE_ARCH}"
