@@ -6,9 +6,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
 PROVIDES += "u-boot"
 
-SRCREV = "d80b05d5624ecba99c15ee2a7b3f59ebf6f8f1e8"
+SRCREV = "3acd50c296398bbba16dc6dd964d3ee36a4c85f5"
 BRANCH = "odroidxu3-v2012.07"
 
 UBOOT_MACHINE_odroid-ux3 = "odroid_config"
-
 RDEPENDS_${PN} = "secure-odroid-ux3"
