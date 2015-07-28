@@ -3,7 +3,7 @@ inherit image_types
 # Heavly influenced by image_types_fsl.bblcass 
 
 
-IMAGE_BOOTLOADER ?= "secure-odroid-ux3"
+IMAGE_BOOTLOADER ?= "u-boot"
 
 # Handle u-boot suffixes
 UBOOT_SUFFIX ?= "bin"
@@ -20,7 +20,7 @@ UBOOT_ENV_POS ?= "1231"
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
 
 # Set alignment to 4MB [in KiB]
-IMAGE_ROOTFS_ALIGNMENT = "2048"
+IMAGE_ROOTFS_ALIGNMENT = "4096"
 
 SDIMG_ROOTFS_TYPE ?= "ext4"
 SDIMG_ROOTFS = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
@@ -83,16 +83,11 @@ generate_odroid_ux3_sdcard () {
     parted ${SDCARD} print
                             
 	case "${IMAGE_BOOTLOADER}" in
-		secure-odroid-ux3)
+		u-boot)
             dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
             dd if=${DEPLOY_DIR_IMAGE}/bl2.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B2_POS}
             dd if=${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc seek=${UBOOT_BIN_POS}
             dd if=${DEPLOY_DIR_IMAGE}/tzsw.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_TZSW_POS}
-            dd if=/dev/zero of=${SDCARD} seek=${UBOOT_ENV_POS} conv=notrunc count=32 bs=512
-		;;
-		u-boot)
-            dd if=${DEPLOY_DIR_IMAGE}/u-boot-spl.bin of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
-            dd if=${DEPLOY_DIR_IMAGE}/u-boot.img of=${SDCARD} conv=notrunc seek=${UBOOT_BIN_POS}
             dd if=/dev/zero of=${SDCARD} seek=${UBOOT_ENV_POS} conv=notrunc count=32 bs=512
 		;;
 
