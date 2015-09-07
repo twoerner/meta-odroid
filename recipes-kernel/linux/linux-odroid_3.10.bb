@@ -1,24 +1,18 @@
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-KBRANCH = "odroidxu3-3.10.y"
-SRCREV="31ad7cdd37a0a9eb80318f8aa567064f3e7b5b0b"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-3.10:"
 
-SRC_URI = "git://github.com/hardkernel/linux.git;bareclone=1;branch=${KBRANCH}"
+KBRANCH_odroid-ux3 ?= "odroidxu3-3.10.y"
+
+SRCREV_odroid-ux3 ?= "30cd82480f257905c418b32735425585b15cebdd"
+
+SRC_URI = "git://github.com/hardkernel/linux.git;branch=${KBRANCH}"
 
 SRC_URI += "file://defconfig"
 
-SRC_URI += "file://odroid.scc \
-            file://odroid.cfg \
-            file://odroid-user-config.cfg \
-            file://odroid-user-patches.scc \
-           "
-
-
-LINUX_VERSION ?= "3.10.72"
-LINUX_VERSION_EXTENSION ?= "odroid-ux3"
-
-SRCREV="7b761be254363bd3488f76bb4c50344c820accea"
+LINUX_VERSION_odroid-ux3 ?= "3.10.81"
+LINUX_VERSION_EXTENSION_odroid-ux3 ?= "odroid-ux3"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
