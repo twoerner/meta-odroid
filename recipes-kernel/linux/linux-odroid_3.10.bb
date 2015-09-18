@@ -16,4 +16,4 @@ LINUX_VERSION_EXTENSION_odroid-ux3 ?= "odroid-ux3"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
-COMPATIBLE_MACHINE_odroid-ux3 = "odroid-ux3"
+COMPATIBLE_MACHINE = "odroid-ux3"
