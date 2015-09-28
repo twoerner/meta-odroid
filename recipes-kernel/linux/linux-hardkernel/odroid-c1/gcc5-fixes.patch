@@ -1,0 +1,254 @@
+Index: kernel-source/arch/arm/include/asm/ftrace.h
+===================================================================
+--- kernel-source.orig/arch/arm/include/asm/ftrace.h
++++ kernel-source/arch/arm/include/asm/ftrace.h
+@@ -32,7 +32,6 @@ extern void ftrace_call_old(void);
+ 
+ #ifndef __ASSEMBLY__
+ 
+-#if defined(CONFIG_FRAME_POINTER) && !defined(CONFIG_ARM_UNWIND)
+ /*
+  * return_address uses walk_stackframe to do it's work.  If both
+  * CONFIG_FRAME_POINTER=y and CONFIG_ARM_UNWIND=y walk_stackframe uses unwind
+@@ -40,18 +39,8 @@ extern void ftrace_call_old(void);
+  * have to be marked with __notrace.  So for now just depend on
+  * !CONFIG_ARM_UNWIND.
+  */
+-
+ void *return_address(unsigned int);
+ 
+-#else
+-
+-extern inline void *return_address(unsigned int level)
+-{
+-	return NULL;
+-}
+-
+-#endif
+-
+ #define HAVE_ARCH_CALLER_ADDR
+ 
+ #define CALLER_ADDR0 ((unsigned long)__builtin_return_address(0))
+Index: kernel-source/drivers/net/wireless/realtek/8188eu/rtl8xxx_EU/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8188eu/rtl8xxx_EU/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8188eu/rtl8xxx_EU/include/ieee80211.h
+@@ -1314,18 +1314,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));
+Index: kernel-source/drivers/net/wireless/realtek/8188eu/rtl8xxx_EU_MP/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8188eu/rtl8xxx_EU_MP/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8188eu/rtl8xxx_EU_MP/include/ieee80211.h
+@@ -1191,12 +1191,12 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+Index: kernel-source/drivers/net/wireless/realtek/8192cu/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8192cu/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8192cu/include/ieee80211.h
+@@ -1194,18 +1194,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));
+Index: kernel-source/drivers/net/wireless/realtek/8192du/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8192du/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8192du/include/ieee80211.h
+@@ -1195,18 +1195,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));
+Index: kernel-source/drivers/net/wireless/realtek/8192eu/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8192eu/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8192eu/include/ieee80211.h
+@@ -1314,18 +1314,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));
+Index: kernel-source/drivers/net/wireless/realtek/8723au/rtl8723AU/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8723au/rtl8723AU/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8723au/rtl8723AU/include/ieee80211.h
+@@ -1196,18 +1196,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));
+Index: kernel-source/drivers/net/wireless/realtek/8811au/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8811au/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8811au/include/ieee80211.h
+@@ -1314,18 +1314,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));
+Index: kernel-source/drivers/staging/rtl8712/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/staging/rtl8712/ieee80211.h
++++ kernel-source/drivers/staging/rtl8712/ieee80211.h
+@@ -734,7 +734,7 @@ enum ieee80211_state {
+ #define IEEE_G            (1<<2)
+ #define IEEE_MODE_MASK    (IEEE_A|IEEE_B|IEEE_G)
+ 
+-extern inline int ieee80211_is_empty_essid(const char *essid, int essid_len)
++static inline int ieee80211_is_empty_essid(const char *essid, int essid_len)
+ {
+ 	/* Single white space is for Linksys APs */
+ 	if (essid_len == 1 && essid[0] == ' ')
+@@ -748,7 +748,7 @@ extern inline int ieee80211_is_empty_ess
+ 	return 1;
+ }
+ 
+-extern inline int ieee80211_get_hdrlen(u16 fc)
++static inline int ieee80211_get_hdrlen(u16 fc)
+ {
+ 	int hdrlen = 24;
+ 
+Index: kernel-source/drivers/net/wireless/realtek/8812au/include/ieee80211.h
+===================================================================
+--- kernel-source.orig/drivers/net/wireless/realtek/8812au/include/ieee80211.h
++++ kernel-source/drivers/net/wireless/realtek/8812au/include/ieee80211.h
+@@ -1314,18 +1314,18 @@ enum ieee80211_state {
+ (((Addr[2]) & 0xff) == 0xff) && (((Addr[3]) & 0xff) == 0xff) && (((Addr[4]) & 0xff) == 0xff) && \
+ (((Addr[5]) & 0xff) == 0xff))
+ #else
+-extern __inline int is_multicast_mac_addr(const u8 *addr)
++static __inline int is_multicast_mac_addr(const u8 *addr)
+ {
+         return ((addr[0] != 0xff) && (0x01 & addr[0]));
+ }
+ 
+-extern __inline int is_broadcast_mac_addr(const u8 *addr)
++static __inline int is_broadcast_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0xff) && (addr[1] == 0xff) && (addr[2] == 0xff) &&   \
+ 		(addr[3] == 0xff) && (addr[4] == 0xff) && (addr[5] == 0xff));
+ }
+ 
+-extern __inline int is_zero_mac_addr(const u8 *addr)
++static __inline int is_zero_mac_addr(const u8 *addr)
+ {
+ 	return ((addr[0] == 0x00) && (addr[1] == 0x00) && (addr[2] == 0x00) &&   \
+ 		(addr[3] == 0x00) && (addr[4] == 0x00) && (addr[5] == 0x00));

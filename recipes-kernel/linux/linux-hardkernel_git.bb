@@ -26,6 +26,7 @@ SRC_URI = " \
 
 SRC_URI_append_odroid-c1 = " \
      file://0001-Revert-amlogic-s-dtb-make-modification.patch \
+     file://gcc5-fixes.patch \
 "
 
 S = "${WORKDIR}/git/"

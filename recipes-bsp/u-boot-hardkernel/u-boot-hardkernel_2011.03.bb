@@ -17,6 +17,7 @@ SRC_URI = " \
     ${UBOOT_REPO_URI};branch=${UBOOT_BRANCH} \
     file://0001-ucl-use-host-compiler-supplied-by-OE.patch \
     file://0003-use-lldiv-for-64-bit-division.patch \
+    file://uboot-gcc5-fixes.patch \
 "
 
 SRC_URI_append_odroid-c1 = " \
