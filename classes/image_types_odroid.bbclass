@@ -35,7 +35,7 @@ IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
                         ${@d.getVar('IMAGE_BOOTLOADER', True) and d.getVar('IMAGE_BOOTLOADER', True) + ':do_deploy' or ''}"
 
 SDCARD = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sdcard"
-SDCARD_GENERATION_COMMAND_odroid-ux3= "generate_odroid_ux3_sdcard"
+SDCARD_GENERATION_COMMAND_odroid-xu3= "generate_odroid_xu3_sdcard"
 
 #
 # Create an image that can by written onto a SD card using dd for use
@@ -73,7 +73,7 @@ SDCARD_GENERATION_COMMAND_odroid-ux3= "generate_odroid_ux3_sdcard"
 # |                        |            |                        |
 # 0                      2048     2MiB +  100MiB       2MiB +  100Mib + SDIMG_ROOTFS
 
-generate_odroid_ux3_sdcard () {
+generate_odroid_xu3_sdcard () {
 	# Create partition table
     parted -s ${SDCARD} mklabel msdos
     # Create boot partition and mark it as bootable

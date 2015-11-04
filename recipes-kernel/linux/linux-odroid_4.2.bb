@@ -6,9 +6,9 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/linux-odroid-dev:"
 KBRANCH ?= "master"
 SRCREV ?= "e49251988b10e8787baa5f3d8ffd154e003f0963"
 
-KBRANCH_odroid-ux3 ?= "master"
-SRCREV_machine_odroid-ux3 ?= "e49251988b10e8787baa5f3d8ffd154e003f0963"
-KERNEL_DEVICETREE_odroid-ux3 = "exynos5422-odroidxu3.dtb"
+KBRANCH_odroid-xu3 ?= "master"
+SRCREV_machine_odroid-xu3 ?= "e49251988b10e8787baa5f3d8ffd154e003f0963"
+KERNEL_DEVICETREE_odroid-xu3 = "exynos5422-odroidxu3.dtb"
 
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;bareclone=1;branch=${KBRANCH}"
@@ -29,4 +29,4 @@ do_configure_prepend () {
     cp ${WORKDIR}/${MACHINE}_defconfig ${B}/.config
 }
 
-COMPATIBLE_MACHINE = "odroid-ux3"
+COMPATIBLE_MACHINE = "odroid-xu3"
