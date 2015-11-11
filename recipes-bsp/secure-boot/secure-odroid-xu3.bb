@@ -1,4 +1,4 @@
-DESCRIPTION = "Samsung secure bootloader for Odroid UX3 devices supported by the hardkernel product"
+DESCRIPTION = "Samsung secure bootloader for Odroid XU3 devices supported by the hardkernel product"
 SECTION = "bootloaders"
 LICENSE = "GPLv2"
 

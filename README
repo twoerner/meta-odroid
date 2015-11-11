@@ -4,8 +4,8 @@ Status of support devices:
 ODROID-C1: SD card image works (it is tested with core-image-minimal)
 ODROID-U2: Not tested after the fork
 ODROID-XU: ditto
-ODROID-UX3: tested
-ODROID-UX4: untested but compat with UX3
+ODROID-XU3: tested
+ODROID-XU4: untested but compat with XU3
 
 This layer depends on:
 
