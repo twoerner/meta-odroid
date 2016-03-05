@@ -24,21 +24,16 @@ SRC_URI = " \
   file://defconfig \
 "
 
-SRC_URI_append_odroid-c1 = " \
-     file://0001-Revert-amlogic-s-dtb-make-modification.patch \
-"
-
 S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
-SRCREV_odroid-c1 = "c193f5d80656ce6d471cf3a28fe8259b3e3a02c0"
+SRCREV_odroid-c1 = "5dd67345adb61e5a8a77d249b616dc49344f32ef"
 
 KV = "3.8.13"
-KV_odroid-c1 = "3.10.70"
+KV_odroid-c1 = "3.10.80"
 PV = "${KV}+gitr${SRCPV}"
-LOCALVERSION ?= ""
+LOCALVERSION ?= "odroid"
 
-PR="r1"
 
 # stolen from meta-oe's linux.inc
 #kernel_conf_variable CMDLINE "\"${CMDLINE} ${CMDLINE_DEBUG}\""
