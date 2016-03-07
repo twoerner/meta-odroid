@@ -10,11 +10,15 @@ UBOOT_SUFFIX ?= "bin"
 UBOOT_SUFFIX_SDCARD ?= "${UBOOT_SUFFIX}"
 
 #BOOT components
+#15k
 UBOOT_B1_POS ?= "1"
-UBOOT_B2_POS ?= "31"
+#16K
+UBOOT_B2_POS ?= "31" 
+
+#use 1M bl2
 UBOOT_BIN_POS ?= "63"
-UBOOT_TZSW_POS ?= "719"
-UBOOT_ENV_POS ?= "1231"
+UBOOT_TZSW_POS ?= "2111"
+UBOOT_ENV_POS ?= "2625"
 
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
@@ -48,8 +52,8 @@ SDCARD_GENERATION_COMMAND_odroid-xu3= "generate_odroid_xu3_sdcard"
 # | Bl1       | 1    | 0    |  1 (boot) |
 # | Bl2       | 31   | 30   |  1 (boot) |
 # | U-boot    | 63   | 62   |  1 (boot) |
-# | Tzsw      | 719  | 2110 |  1 (boot) |
-# | Uboot Env | 1231 | 2560 |  0 (user) |
+# | Tzsw      | 2111 | 2110 |  1 (boot) |
+# | Uboot Env | 2625 | 2560 |  0 (user) |
 #  -------------------------------------
 #
 # External variables needed:
