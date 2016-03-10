@@ -8,18 +8,21 @@ BRANCH ?= "odroidc2-v2015.01"
 SRCREV = "beda6948c78a85c9705a877f9d012fec10032ef2"
 
 SRC_URI += "file://0001-Add-linux-compiler-gcc5.h-to-fix-builds-with-gcc5.patch"
+SRC_URI += "file://boot.ini"
 
 S = "${WORKDIR}/git"
 
 PARALLEL_MAKE = ""
 
 do_compile_append () {
-	cp ${S}/build/u-boot.bin ${S}/.	
+    cp ${S}/sd_fuse/bl1.bin.hardkernel ${S}/.	
+    cp ${S}/sd_fuse/u-boot.bin ${S}/.	
 }
 
 do_deploy_append () {
     install -d ${DEPLOYDIR}
-    cp -v ${S}/sd_fuse/bl1.bin.hardkernel ${DEPLOYDIR}
+    cp ${S}/bl1.bin.hardkernel ${DEPLOYDIR}
+    cp ${WORKDIR}/boot.ini ${DEPLOYDIR}
 }
 
 COMPATIBLE_MACHINE = "(odroid-c2)"
