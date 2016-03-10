@@ -2,7 +2,6 @@ inherit image_types
 
 # Heavly influenced by image_types_fsl.bblcass 
 
-
 IMAGE_BOOTLOADER ?= "u-boot"
 
 # Handle u-boot suffixes
@@ -12,13 +11,16 @@ UBOOT_SUFFIX_SDCARD ?= "${UBOOT_SUFFIX}"
 #BOOT components
 #15k
 UBOOT_B1_POS ?= "1"
-#16K
-UBOOT_B2_POS ?= "31" 
 
-#use 1M bl2
-UBOOT_BIN_POS ?= "63"
-UBOOT_TZSW_POS ?= "2111"
-UBOOT_ENV_POS ?= "2625"
+#odroid-xu3
+UBOOT_B2_POS_odroid-xu3 ?= "31" 
+UBOOT_BIN_POS_odroid-xu3 ?= "63"
+UBOOT_TZSW_POS_odroid-xu3 ?= "2111"
+UBOOT_ENV_POS_odroid-xu3 ?= "2625"
+
+#odroid-c2
+UBOOT_BIN_POS_odroid-c2 ?= "97"
+UBOOT_ENV_POS_odroid-c2 ?= "1440"
 
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
@@ -40,6 +42,45 @@ IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
 
 SDCARD = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sdcard"
 SDCARD_GENERATION_COMMAND_odroid-xu3= "generate_odroid_xu3_sdcard"
+SDCARD_GENERATION_COMMAND_odroid-c2= "generate_odroid_c2_sdcard"
+
+generate_odroid_c2_sdcard () {
+	# Create partition table
+    parted -s ${SDCARD} mklabel msdos
+    # Create boot partition and mark it as bootable
+    parted -s ${SDCARD} unit KiB mkpart primary fat16 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
+    # Create rootfs partition to the end of disk
+    parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
+    parted ${SDCARD} print
+                            
+	case "${IMAGE_BOOTLOADER}" in
+		u-boot)
+            dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
+            dd if=${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc seek=${UBOOT_BIN_POS}
+            dd if=/dev/zero of=${SDCARD} seek=${UBOOT_ENV_POS} conv=notrunc count=32 bs=512
+		;;
+
+		*)
+		bberror "Unknown IMAGE_BOOTLOADER value"
+		exit 1
+		;;
+	esac
+
+    # create Boot partition
+    BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDCARD} unit b print \
+        | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 1024 }')
+    echo "boot.img blocks ${BOOT_BLOCKS}"
+
+    mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
+
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::/${KERNEL_IMAGETYPE}
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/meson64_odroidc2.dtb ::/meson64_odroidc2.dtb
+    #mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.ini ::/boot.ini
+
+    # Burn Partitions
+    dd if=${WORKDIR}/boot.img of=${SDCARD} conv=notrunc seek=1 bs=$(expr ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
+    dd if=${SDIMG_ROOTFS} of=${SDCARD} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
+}
 
 #
 # Create an image that can by written onto a SD card using dd for use
@@ -123,7 +164,7 @@ IMAGE_CMD_sdcard () {
 		bberror "SDCARD_ROOTFS is undefined. To use sdcard image from Odroid BSP it needs to be defined."
 		exit 1
 	fi
-
+    rm -f ${WORKDIR}/boot.img
     # Align partitions
     BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE} + ${IMAGE_ROOTFS_ALIGNMENT} - 1)
     BOOT_SPACE_ALIGNED=$(expr ${BOOT_SPACE_ALIGNED} - ${BOOT_SPACE_ALIGNED} % ${IMAGE_ROOTFS_ALIGNMENT})
