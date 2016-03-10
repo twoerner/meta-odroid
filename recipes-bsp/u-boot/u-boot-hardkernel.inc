@@ -7,7 +7,7 @@ PROVIDES = "virtual/bootloader"
 LICENSE = "GPLv2"
 
 LIC_FILES_CHKSUM = "file://../git/COPYING;md5=1707d6db1d42237583f50183a5651ecb"
-
+PROVIDES += "u-boot"
 # from where to fetch the u-boot
 UBOOT_REPO_URI ??= "git://github.com/hardkernel/u-boot.git"
 
