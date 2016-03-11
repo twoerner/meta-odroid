@@ -32,7 +32,7 @@ SDIMG_ROOTFS_TYPE ?= "ext4"
 SDIMG_ROOTFS = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
 
 # Boot partition size [in KiB]
-BOOT_SPACE ?= "102400"
+BOOT_SPACE ?= "266144"
 
 IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
                         dosfstools-native:do_populate_sysroot \
