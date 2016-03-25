@@ -1,29 +1,34 @@
-require u-boot-hardkernel.inc
-
-LIC_FILES_CHKSUM = "file://README;md5=813b058284702a930d44d94cca59ee96"
+DESCRIPTION = "Odroid C2 boot loader supported by the hardkernel product"
+SECTION = "bootloaders"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-2015-01:"
 
-BRANCH ?= "odroidc2-v2015.01"
-SRCREV = "beda6948c78a85c9705a877f9d012fec10032ef2"
+PROVIDES = "u-boot"
 
-SRC_URI += "file://0001-Add-linux-compiler-gcc5.h-to-fix-builds-with-gcc5.patch"
-SRC_URI += "file://boot.ini"
+SRC_URI = " \
+	file://boot.ini \
+	file://u-boot.bin \
+	file://bl1.bin.hardkernel \
+	"
 
-S = "${WORKDIR}/git"
+inherit deploy
 
-PARALLEL_MAKE = ""
+S = "${WORKDIR}"
 
-do_compile_append () {
-    cp ${S}/sd_fuse/bl1.bin.hardkernel ${S}/.	
-    cp ${S}/sd_fuse/u-boot.bin ${S}/.	
-}
+do_patch[noexec] = "1"
+do_configure[noexec] = "1"
+do_compile[noexec] = "1"
 
-do_deploy_append () {
+do_deploy () {
     install -d ${DEPLOYDIR}
-    cp ${S}/bl1.bin.hardkernel ${DEPLOYDIR}
-    cp ${WORKDIR}/boot.ini ${DEPLOYDIR}
+    install -m 755  ${S}/boot.ini ${DEPLOYDIR}
+    install -m 755  ${S}/bl1.bin.hardkernel ${DEPLOYDIR}
+    install -m 755  ${S}/u-boot.bin ${DEPLOYDIR}
 }
+
+addtask deploy before do_build after do_compile
 
 COMPATIBLE_MACHINE = "(odroid-c2)"
 UBOOT_MACHINE_odroid-c2 = "odroidc2_config"
