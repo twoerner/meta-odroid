@@ -3,11 +3,10 @@ OpenEmbedded BSP layer for hardkernel ODROID devices
 Status of support devices:
 ODROID-XU3: u-boot 2016 with 4.1 kernel.  
 ODROID-XU4: untested but compat with XU3
+ODROID-C2: boots using Hardkernel sources
 
 TODO:
-Adding ODROID-C2
-splite XU3 into lite verison.
-
+split XU3 into lite verison.
 
 
 The below have not been validated against latest:
