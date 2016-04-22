@@ -1,6 +1,9 @@
 inherit image_types
 
 # Heavly influenced by image_types_fsl.bblcass 
+# Construct buildable Odroid-c2 SD  image according to the partition table  suggested by Hardkernel  at http://odroid.com/dokuwiki/doku.php?id=en:c2_partition_table
+# tested with Odroid-c2 with EMMC only
+
 
 IMAGE_BOOTLOADER ?= "u-boot"
 
@@ -25,14 +28,14 @@ UBOOT_ENV_POS_odroid-c2 ?= "1440"
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
 
-# Set alignment to 4MB [in KiB]
-IMAGE_ROOTFS_ALIGNMENT = "4096"
+# Set alignment to 1MB [in KiB]
+IMAGE_ROOTFS_ALIGNMENT = "1024"
 
 SDIMG_ROOTFS_TYPE ?= "ext4"
 SDIMG_ROOTFS = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
 
-# Boot partition size [in KiB]
-BOOT_SPACE ?= "266144"
+# Boot partition size [in KiB] to get boot partition with size of 128M
+BOOT_SPACE ?= "131000"
 
 IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
                         dosfstools-native:do_populate_sysroot \
@@ -55,9 +58,10 @@ generate_odroid_c2_sdcard () {
                             
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
-            dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
-            dd if=${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc seek=${UBOOT_BIN_POS}
-            dd if=/dev/zero of=${SDCARD} seek=${UBOOT_ENV_POS} conv=notrunc count=32 bs=512
+#write u-boot and first bootloader as done by the Hardkernel script sd_fusing.sh at http://dn.odroid.com/S905/BootLoader/ODROID-C2/c2_bootloader.tar.gz
+            	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=1 count=442
+             	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=512 skip=1 seek=1
+         	dd if=${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc bs=512 seek=97
 		;;
 
 		*)
