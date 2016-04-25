@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo 0 > /sys/class/graphics/fb0/blank
+echo 224 > /sys/class/gpio/export
+echo 214 > /sys/class/gpio/export
