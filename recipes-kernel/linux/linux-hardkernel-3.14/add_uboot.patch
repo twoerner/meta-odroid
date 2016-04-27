@@ -6,10 +6,10 @@ Index: kernel-source/arch/arm64/Makefile
  
  boot := arch/arm64/boot
  
--Image Image.gz Image.lzo: vmlinux
-+Image Image.gz uImage Image.lzo: vmlinux
+-Image Image.gz: vmlinux
++Image Image.gz uImage : vmlinux
  	$(Q)$(MAKE) $(build)=$(boot) $(boot)/$@
- 
+
  zinstall install: vmlinux
 @@ -89,6 +89,7 @@ archclean:
  define archhelp
@@ -27,8 +27,8 @@ Index: kernel-source/arch/arm64/boot/Makefile
  
  include $(srctree)/arch/arm64/boot/dts/Makefile
  
--targets := Image Image.gz Image.lzo
-+targets := Image Image.gz Image.lzo uImage
+-targets := Image Image.gz
++targets := Image Image.gz uImage
 +ifneq ($(LOADADDR),)
 +	UIMAGE_LOADADDR=$(LOADADDR)
 +endif
@@ -54,4 +54,6 @@ Index: kernel-source/arch/arm64/boot/Makefile
 +
  $(obj)/Image: vmlinux FORCE
  	$(call if_changed,objcopy)
+
+
  
