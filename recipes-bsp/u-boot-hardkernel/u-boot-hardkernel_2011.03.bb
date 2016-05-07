@@ -8,7 +8,6 @@ UBOOT_BRANCH ?= "odroidc-v2011.03"
 SRCREV = "f631c80969b33b796d2d4c077428b4765393ed2b"
 
 PV = "v2011.03+git${SRCPV}"
-PR = "r7"
 
 PROVIDES =+ "u-boot ${PN}-config"
 PACKAGES =+ "u-boot-ini"
@@ -17,6 +16,12 @@ SRC_URI = " \
     ${UBOOT_REPO_URI};branch=${UBOOT_BRANCH} \
     file://0001-ucl-use-host-compiler-supplied-by-OE.patch \
     file://0003-use-lldiv-for-64-bit-division.patch \
+    file://0001-compiler_gcc-do-not-redefine-__gnu_attributes.patch \
+    file://0001-ARM-asm-io.h-use-static-inline.patch \
+    file://0001-board.c-fix-inline-issue.patch \
+    file://0001-compile-add-gcc5.patch \
+    file://0001-main-fix-inline-issue.patch \
+    file://0001-usb-use-define-not-func.patch \
 "
 
 SRC_URI_append_odroid-c1 = " \
