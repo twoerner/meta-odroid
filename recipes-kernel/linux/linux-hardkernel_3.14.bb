@@ -32,4 +32,4 @@ do_deploy_append() {
 	install ${B}/arch/arm64/boot/dts/meson64_odroidc2.dtb ${DEPLOYDIR}/.
 }
 
-COMPATIBLE_MACHINE_odroid-c2  = "odroid-c2"
+COMPATIBLE_MACHINE = "(odroid-c2)"
