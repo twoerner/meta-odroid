@@ -4,10 +4,12 @@ require recipes-kernel/linux/linux-yocto.inc
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
 KBRANCH ?= "odroidc2-3.14.y"
-SRCREV ?= "a7ae544a802bd56121bf7e6f93054d3e76066431"
+SRCREV ?= "db9b5cfbd380d2316b7723599ee0c7e9d866db17"
 
 KBRANCH_odroid-c2 ?= "odroidc2-3.14.y"
-SRCREV_machine_odroid-c2 ?= "a7ae544a802bd56121bf7e6f93054d3e76066431"
+SRCREV_machine_odroid-c2 ?= "db9b5cfbd380d2316b7723599ee0c7e9d866db17"
+
+
 
 #KERNEL_DEVICETREE_odroid-c2 = "meson64_odroidc2.dtb"
 
