@@ -20,4 +20,4 @@ PV = "${LINUX_VERSION}+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
 
-COMPATIBLE_MACHINE_odroid-xu3  = "odroid-xu3"
+COMPATIBLE_MACHINE = "(odroid-xu3)"
