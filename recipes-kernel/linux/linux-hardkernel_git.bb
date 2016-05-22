@@ -27,10 +27,10 @@ SRC_URI = " \
 S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
-SRCREV_odroid-c1 = "5dd67345adb61e5a8a77d249b616dc49344f32ef"
+SRCREV_odroid-c1 = "1d4f9e928a1c56a977bbf2d08dacc73a4161b5ff"
 
 KV = "3.8.13"
-KV_odroid-c1 = "3.10.80"
+KV_odroid-c1 = "3.10.96"
 PV = "${KV}+gitr${SRCPV}"
 LOCALVERSION ?= "odroid"
 
