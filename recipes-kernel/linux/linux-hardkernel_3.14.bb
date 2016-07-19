@@ -15,8 +15,10 @@ SRCREV_machine_odroid-c2 ?= "6ad167426fbad87ff62af517fc01ad9655a89e18"
 
 SRC_URI = "git://github.com/hardkernel/linux.git;branch=${KBRANCH}"
 
-SRC_URI += "file://add_uboot.patch \
-		file://defconfig"
+SRC_URI += " \
+	file://add_uboot.patch \
+	file://0001-compiler-gcc-integrate-the-various-compiler-gcc-345-.patch \
+	file://defconfig"
 
 LINUX_VERSION = "3.14"
 PV = "${LINUX_VERSION}+git${SRCPV}"
