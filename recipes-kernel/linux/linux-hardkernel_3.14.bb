@@ -20,8 +20,7 @@ SRC_URI += " \
 	file://0001-compiler-gcc-integrate-the-various-compiler-gcc-345-.patch \
 	file://defconfig"
 
-LINUX_VERSION = "3.14"
-PV = "${LINUX_VERSION}+git${SRCPV}"
+PV = "3.14.29+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
 
