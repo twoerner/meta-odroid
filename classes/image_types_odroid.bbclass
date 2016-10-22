@@ -33,7 +33,7 @@ IMAGE_ROOTFS_ALIGNMENT_odroid-xu3 = "4096"
 IMAGE_ROOTFS_ALIGNMENT_odroid-c2 = "1024"
 
 SDIMG_ROOTFS_TYPE ?= "ext4"
-SDIMG_ROOTFS = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
+SDIMG_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
 
 # Boot partition size [in KiB] to get boot partition with size of 128M
 BOOT_SPACE ?= "131000"
@@ -44,7 +44,8 @@ IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
                         virtual/kernel:do_deploy \
                         ${@d.getVar('IMAGE_BOOTLOADER', True) and d.getVar('IMAGE_BOOTLOADER', True) + ':do_deploy' or ''}"
 
-SDCARD = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sdcard"
+SDCARD = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.sdcard"
+SDCARD_ROOTFS ?= "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4"
 SDCARD_GENERATION_COMMAND_odroid-xu3= "generate_odroid_xu3_sdcard"
 SDCARD_GENERATION_COMMAND_odroid-c2= "generate_odroid_c2_sdcard"
 
@@ -60,8 +61,8 @@ generate_odroid_c2_sdcard () {
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
 #write u-boot and first bootloader as done by the Hardkernel script sd_fusing.sh at http://dn.odroid.com/S905/BootLoader/ODROID-C2/c2_bootloader.tar.gz
-            	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=1 count=442
-             	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=512 skip=1 seek=1
+           	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=1 count=442
+           	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=512 skip=1 seek=1
          	dd if=${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc bs=512 seek=97
 		;;
 
