@@ -7,7 +7,8 @@ KBRANCH ?= "linux-4.4.y"
 SRCREV ?= "9ca1d50fa959cda1f04f43275f7930a70f1a631e"
 
 KBRANCH_odroid-xu3 ?= "linux-4.4.y"
-SRCREV_machine_odroid-xu3 ?= "9ca1d50fa959cda1f04f43275f7930a70f1a631e"
+KBRANCH_odroid-xu4 ?= "linux-4.4.y"
+KBRANCH_odroid-xu3-lite ?= "linux-4.4.y"
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;bareclone=1;branch=${KBRANCH}"
 
@@ -18,4 +19,4 @@ PV = "${LINUX_VERSION}+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
 
-COMPATIBLE_MACHINE = "(odroid-xu3)"
+COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu4|odroid-xu3-lite)"

@@ -16,5 +16,7 @@ PV = "${LINUX_VERSION}+git${SRCPV}"
 KCONF_BSP_AUDIT_LEVEL = "0"
 
 COMPATIBLE_MACHINE_odroid-xu3  = "odroid-xu3"
+COMPATIBLE_MACHINE_odroid-xu4  = "odroid-xu4"
+COMPATIBLE_MACHINE_odroid-xu3-lite  = "odroid-xu3-lite"
 
 DEPENDS = "lzop-native"
