@@ -15,7 +15,7 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 
 SRC_URI += "file://defconfig"
 
-LINUX_VERSION = "4.1.22"
+LINUX_VERSION = "4.1.24"
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
