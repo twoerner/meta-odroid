@@ -22,13 +22,14 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
 do_deploy () {
-    install -d ${DEPLOYDIR}
-    install -m 755  ${S}/boot.ini ${DEPLOYDIR}
-    install -m 755  ${S}/bl1.bin.hardkernel ${DEPLOYDIR}
-    install -m 755  ${S}/bl2.bin.hardkernel ${DEPLOYDIR}
-    install -m 755  ${S}/tzsw.bin.hardkernel ${DEPLOYDIR}
+    install -d ${DEPLOY_DIR_IMAGE}
+    install -m 755  ${S}/boot.ini ${DEPLOY_DIR_IMAGE}
+    install -m 755  ${S}/bl1.bin.hardkernel ${DEPLOY_DIR_IMAGE}
+    install -m 755  ${S}/bl2.bin.hardkernel ${DEPLOY_DIR_IMAGE}
+    install -m 755  ${S}/tzsw.bin.hardkernel ${DEPLOY_DIR_IMAGE}
 }
 
 addtask deploy before do_build after do_compile
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
+COMPATIBLE_MACHINE  = "odroid-xu3"

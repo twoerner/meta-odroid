@@ -4,10 +4,10 @@ require recipes-kernel/linux/linux-yocto.inc
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
 KBRANCH ?= "odroidc2-3.14.y"
-SRCREV ?= "db9b5cfbd380d2316b7723599ee0c7e9d866db17"
+SRCREV ?= "6ad167426fbad87ff62af517fc01ad9655a89e18"
 
 KBRANCH_odroid-c2 ?= "odroidc2-3.14.y"
-SRCREV_machine_odroid-c2 ?= "db9b5cfbd380d2316b7723599ee0c7e9d866db17"
+SRCREV_machine_odroid-c2 ?= "6ad167426fbad87ff62af517fc01ad9655a89e18"
 
 
 
@@ -15,11 +15,12 @@ SRCREV_machine_odroid-c2 ?= "db9b5cfbd380d2316b7723599ee0c7e9d866db17"
 
 SRC_URI = "git://github.com/hardkernel/linux.git;branch=${KBRANCH}"
 
-SRC_URI += "file://add_uboot.patch \
-		file://defconfig"
+SRC_URI += " \
+	file://add_uboot.patch \
+	file://0001-compiler-gcc-integrate-the-various-compiler-gcc-345-.patch \
+	file://defconfig"
 
-LINUX_VERSION = "3.14"
-PV = "${LINUX_VERSION}+git${SRCPV}"
+PV = "3.14.29+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
 
@@ -34,4 +35,4 @@ do_deploy_append() {
 	install ${B}/arch/arm64/boot/dts/meson64_odroidc2.dtb ${DEPLOYDIR}/.
 }
 
-COMPATIBLE_MACHINE_odroid-c2  = "odroid-c2"
+COMPATIBLE_MACHINE = "(odroid-c2)"
