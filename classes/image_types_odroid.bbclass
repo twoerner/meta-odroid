@@ -41,6 +41,7 @@ BOOT_SPACE ?= "131000"
 IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
                         dosfstools-native:do_populate_sysroot \
                         mtools-native:do_populate_sysroot \
+                        coreutils-native:do_populate_sysroot \
                         virtual/kernel:do_deploy \
                         ${@d.getVar('IMAGE_BOOTLOADER', True) and d.getVar('IMAGE_BOOTLOADER', True) + ':do_deploy' or ''}"
 
