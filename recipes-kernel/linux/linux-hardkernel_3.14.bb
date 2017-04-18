@@ -4,10 +4,10 @@ require recipes-kernel/linux/linux-yocto.inc
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
 KBRANCH ?= "odroidc2-3.14.y"
-SRCREV ?= "6ad167426fbad87ff62af517fc01ad9655a89e18"
+SRCREV ?= "8211a219ee5316a5a45cd99b83acd98ebe32606d"
 
 KBRANCH_odroid-c2 ?= "odroidc2-3.14.y"
-SRCREV_machine_odroid-c2 ?= "6ad167426fbad87ff62af517fc01ad9655a89e18"
+SRCREV_machine_odroid-c2 ?= "8211a219ee5316a5a45cd99b83acd98ebe32606d"
 
 
 
@@ -20,7 +20,7 @@ SRC_URI += " \
 	file://0001-compiler-gcc-integrate-the-various-compiler-gcc-345-.patch \
 	file://defconfig"
 
-PV = "3.14.29+git${SRCPV}"
+PV = "3.14.65+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
 
