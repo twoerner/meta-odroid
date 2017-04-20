@@ -1,5 +1,6 @@
 require recipes-bsp/u-boot/u-boot.inc
 
+LICENSE="GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 
 UBOOT_REPO_URI ?= "git://github.com/hardkernel/u-boot.git"
@@ -66,4 +67,3 @@ CONFFILES_u-boot-ini = "/boot/boot.ini"
 COMPATIBLE_MACHINE = "(odroid-c1)"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-

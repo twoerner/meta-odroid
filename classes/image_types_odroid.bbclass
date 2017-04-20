@@ -1,6 +1,6 @@
 inherit image_types
 
-# Heavly influenced by image_types_fsl.bblcass 
+# Heavly influenced by image_types_fsl.bblcass
 # Construct buildable Odroid-c2 SD  image according to the partition table  suggested by Hardkernel  at http://odroid.com/dokuwiki/doku.php?id=en:c2_partition_table
 # tested with Odroid-c2 with EMMC only
 
@@ -15,11 +15,29 @@ UBOOT_SUFFIX_SDCARD ?= "${UBOOT_SUFFIX}"
 #15k
 UBOOT_B1_POS ?= "1"
 
+#odroid-xu general
+UBOOT_B2_POS_odroid-xu ?= "31"
+UBOOT_BIN_POS_odroid-xu ?= "63"
+UBOOT_TZSW_POS_odroid-xu ?= "2111"
+UBOOT_ENV_POS_odroid-xu ?= "2625"
+
 #odroid-xu3
-UBOOT_B2_POS_odroid-xu3 ?= "31" 
-UBOOT_BIN_POS_odroid-xu3 ?= "63"
-UBOOT_TZSW_POS_odroid-xu3 ?= "2111"
-UBOOT_ENV_POS_odroid-xu3 ?= "2625"
+UBOOT_B2_POS_odroid-xu3 ?= "${UBOOT_B2_POS_odroid-xu}"
+UBOOT_BIN_POS_odroid-xu3 ?= "${UBOOT_BIN_POS_odroid-xu}"
+UBOOT_TZSW_POS_odroid-xu3 ?= "${UBOOT_TZSW_POS_odroid-xu}"
+UBOOT_ENV_POS_odroid-xu3 ?= "${UBOOT_ENV_POS_odroid-xu}"
+
+#odroid-xu3-lite
+UBOOT_B2_POS_odroid-xu3-lite ?= "${UBOOT_B2_POS_odroid-xu}"
+UBOOT_BIN_POS_odroid-xu3-lite ?= "${UBOOT_BIN_POS_odroid-xu}"
+UBOOT_TZSW_POS_odroid-xu3-lite ?= "${UBOOT_TZSW_POS_odroid-xu}"
+UBOOT_ENV_POS_odroid-xu3-lite ?= "${UBOOT_ENV_POS_odroid-xu}"
+
+#odroid-xu4
+UBOOT_B2_POS_odroid-xu4 ?= "${UBOOT_B2_POS_odroid-xu}"
+UBOOT_BIN_POS_odroid-xu4 ?= "${UBOOT_BIN_POS_odroid-xu}"
+UBOOT_TZSW_POS_odroid-xu4 ?= "${UBOOT_TZSW_POS_odroid-xu}"
+UBOOT_ENV_POS_odroid-xu4 ?= "${UBOOT_ENV_POS_odroid-xu}"
 
 #odroid-c2
 UBOOT_BIN_POS_odroid-c2 ?= "97"
@@ -29,7 +47,10 @@ UBOOT_ENV_POS_odroid-c2 ?= "1440"
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
 
 # Set alignment to 1MB [in KiB]
-IMAGE_ROOTFS_ALIGNMENT_odroid-xu3 = "4096"
+IMAGE_ROOTFS_ALIGNMENT_odroid-xu = "4096"
+IMAGE_ROOTFS_ALIGNMENT_odroid-xu3 = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
+IMAGE_ROOTFS_ALIGNMENT_odroid-xu3-lite = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
+IMAGE_ROOTFS_ALIGNMENT_odroid-xu4 = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
 IMAGE_ROOTFS_ALIGNMENT_odroid-c2 = "1024"
 
 SDIMG_ROOTFS_TYPE ?= "ext4"
@@ -46,7 +67,9 @@ IMAGE_DEPENDS_sdcard = "parted-native:do_populate_sysroot \
 
 SDCARD = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.sdcard"
 SDCARD_ROOTFS ?= "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4"
-SDCARD_GENERATION_COMMAND_odroid-xu3= "generate_odroid_xu3_sdcard"
+SDCARD_GENERATION_COMMAND_odroid-xu3= "generate_odroid_xu_sdcard"
+SDCARD_GENERATION_COMMAND_odroid-xu4= "generate_odroid_xu_sdcard"
+SDCARD_GENERATION_COMMAND_odroid-xu3-lite= "generate_odroid_xu_sdcard"
 SDCARD_GENERATION_COMMAND_odroid-c2= "generate_odroid_c2_sdcard"
 
 generate_odroid_c2_sdcard () {
@@ -57,7 +80,7 @@ generate_odroid_c2_sdcard () {
     # Create rootfs partition to the end of disk
     parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
     parted ${SDCARD} print
-                            
+
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
 #write u-boot and first bootloader as done by the Hardkernel script sd_fusing.sh at http://dn.odroid.com/S905/BootLoader/ODROID-C2/c2_bootloader.tar.gz
@@ -115,16 +138,16 @@ generate_odroid_c2_sdcard () {
 #
 #    Default Free space = 1.3x
 #    Use IMAGE_OVERHEAD_FACTOR to add more space
-#            2MiB               100MiB           SDIMG_ROOTFS    
-# <-----------------------> <----------> <----------------------> 
-#  ------------------------ ------------ ------------------------ 
+#            2MiB               100MiB           SDIMG_ROOTFS
+# <-----------------------> <----------> <---------------------->
+#  ------------------------ ------------ ------------------------
 # | IMAGE_ROOTFS_ALIGNMENT | BOOT_SPACE | ROOTFS_SIZE            |
-#  ------------------------ ------------ ------------------------ 
+#  ------------------------ ------------ ------------------------
 # ^                        ^            ^                        ^
 # |                        |            |                        |
 # 0                      2048     2MiB +  100MiB       2MiB +  100Mib + SDIMG_ROOTFS
 
-generate_odroid_xu3_sdcard () {
+generate_odroid_xu_sdcard () {
 	# Create partition table
     parted -s ${SDCARD} mklabel msdos
     # Create boot partition and mark it as bootable
@@ -132,7 +155,7 @@ generate_odroid_xu3_sdcard () {
     # Create rootfs partition to the end of disk
     parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
     parted ${SDCARD} print
-                            
+
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
             dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
@@ -156,7 +179,7 @@ generate_odroid_xu3_sdcard () {
     mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
 
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::/${KERNEL_IMAGETYPE}
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-exynos5422-odroidxu3.dtb ::/exynos5422-odroidxu3-lite.dtb
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${KERNEL_DEVICETREE} ::/${KERNEL_DEVICETREE}
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.scr ::/boot.scr
 
     # Burn Partitions
