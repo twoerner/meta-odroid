@@ -21,7 +21,7 @@ IMAGE_FSTYPES_append = " ext4 sdcard"
 SERIAL_CONSOLE = "115200 ttySAC2"
 
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-stable"
-PREFERRED_VERSION_linux-stable ?= "4.8%"
+PREFERRED_VERSION_linux-stable ?= "4.9%"
 
 #specify u-boot parameters
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
