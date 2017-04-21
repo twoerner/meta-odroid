@@ -26,7 +26,7 @@ PREFERRED_VERSION_linux-stable ?= "4.8%"
 #specify u-boot parameters
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
 PREFERRED_PROVIDER_u-boot ?= "u-boot"
-PREFERRED_VERSION_u-boot ?= "v2016.03%"
+PREFERRED_VERSION_u-boot ?= "2017.01%"
 
 
 KERNEL_IMAGETYPE ?= "zImage"
