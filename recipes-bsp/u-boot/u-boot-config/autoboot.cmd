@@ -6,6 +6,7 @@
 # platform dependent: boardname, fdtfile, console
 # system dependent: mmcbootdev, mmcbootpart, mmcrootdev, mmcrootpart, rootfstype
 #
+setenv fdtfile	   KERNEL_DEVICETREE
 setenv fdtaddr     "40800000"
 setenv initrdname  "uInitrd"
 setenv initrdaddr  "42000000"

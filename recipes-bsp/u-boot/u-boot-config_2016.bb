@@ -18,6 +18,7 @@ do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
 do_compile (){
+	sed -i 's/KERNEL_DEVICETREE/${KERNEL_DEVICETREE}/' ${S}/autoboot.cmd
         mkimage -C none -A arm -T script -d ${S}/autoboot.cmd ${S}/boot.scr
 }
 
