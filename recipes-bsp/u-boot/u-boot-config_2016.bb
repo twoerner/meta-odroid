@@ -1,7 +1,6 @@
-DESCRIPTION = "Samsung secure bootloader for Odroid XU3 devices supported by the hardkernel product"
+DESCRIPTION = "Create u-boot boot config file"
 SECTION = "bootloaders"
 LICENSE = "GPLv2"
-
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
@@ -11,13 +10,14 @@ inherit deploy
 
 S = "${WORKDIR}"
 
-SRC_URI = "\
-    file://autoboot.cmd \
-    "
+SRC_URI = "file://autoboot.cmd"
+
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
-do_compile (){
+do_compil(){
+	sed -i 's/FDTADDR/${UBOOT_FDTADDR}/' ${S}/autoboot.cmd
+	sed -i 's/INITADDR/${UBOOT_INITADDR}/' ${S}/autoboot.cmd
 	sed -i 's/KERNEL_DEVICETREE/${KERNEL_DEVICETREE}/' ${S}/autoboot.cmd
         mkimage -C none -A arm -T script -d ${S}/autoboot.cmd ${S}/boot.scr
 }

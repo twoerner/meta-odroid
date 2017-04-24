@@ -7,9 +7,9 @@
 # system dependent: mmcbootdev, mmcbootpart, mmcrootdev, mmcrootpart, rootfstype
 #
 setenv fdtfile	   KERNEL_DEVICETREE
-setenv fdtaddr     "40800000"
+setenv fdtaddr     FDTADDR  
 setenv initrdname  "uInitrd"
-setenv initrdaddr  "42000000"
+setenv initrdaddr  INITRADDR 
 setenv loaddtb     "load mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}"
 setenv loadinitrd  "load mmc ${mmcbootdev}:${mmcbootpart} ${initrdaddr} ${initrdname}"
 setenv loadkernel  "load mmc ${mmcbootdev}:${mmcbootpart} '${kerneladdr}' '${kernelname}'"

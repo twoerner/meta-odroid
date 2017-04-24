@@ -31,5 +31,7 @@ PREFERRED_VERSION_u-boot ?= "2017.01%"
 
 KERNEL_IMAGETYPE ?= "zImage"
 UBOOT_BINARY ?= "u-boot-dtb.bin"
+UBOOT_FDTADDR = "40800000"
+UBOOT_INITADDR = "42000000"
 
 MACHINE_FEATURES = "serial usbgadget usbhost vfat ext2 rtc alsa screen"
