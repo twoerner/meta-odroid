@@ -9,12 +9,8 @@ DEPENDS = "lzop-native"
 inherit kernel siteinfo
 require recipes-kernel/linux/linux-yocto.inc
 
-SRC_URI += "file://defconfig"
+SRC_URI += "file://${O_KERNEL_CONFIG}/defconfig"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
 KCONF_BSP_AUDIT_LEVEL = "0"
-
-COMPATIBLE_MACHINE_odroid-xu3  = "odroid-xu3"
-COMPATIBLE_MACHINE_odroid-xu4  = "odroid-xu4"
-COMPATIBLE_MACHINE_odroid-xu3-lite  = "odroid-xu3-lite"
