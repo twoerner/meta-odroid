@@ -19,7 +19,15 @@ S = "${WORKDIR}"
 
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
-do_compile[noexec] = "1"
+
+do_compile () {
+	sed -i 's/UBOOT_LOADADDR/${UBOOT_LOADADDR}/'  ${S}/boot.ini
+	sed -i 's/UBOOT_DTB_LOADADDR/${UBOOT_DTB_LOADADDR}/'  ${S}/boot.ini
+	sed -i 's/UBOOT_BOOT_CMD/${UBOOT_BOOT_CMD}/'  ${S}/boot.ini
+	sed -i 's/UBOOT_CONSOLE/${UBOOT_CONSOLE}/'  ${S}/boot.ini
+	sed -i 's/KERNEL_DEVICETREE_FN/${KERNEL_DEVICETREE_FN}/'  ${S}/boot.ini
+}
+
 
 do_deploy () {
     install -d ${DEPLOYDIR}
