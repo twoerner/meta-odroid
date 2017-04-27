@@ -15,7 +15,7 @@ SRC_URI = "file://autoboot.cmd"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
-do_compil(){
+do_compile (){
 	sed -i 's/FDTADDR/${UBOOT_FDTADDR}/' ${S}/autoboot.cmd
 	sed -i 's/INITADDR/${UBOOT_INITADDR}/' ${S}/autoboot.cmd
 	sed -i 's/KERNEL_DEVICETREE/${KERNEL_DEVICETREE}/' ${S}/autoboot.cmd
