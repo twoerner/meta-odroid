@@ -5,6 +5,9 @@ LINUX_VERSION ?= "4.10.12"
 SRCREV ?= "055c0a94117c3c9950ebb7d0c262ae64808bd266"
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-4.10.y"
 
+O_KERNEL_CONFIG_odroid-xu3  = "odroid-xu3"
+O_KERNEL_CONFIG_odroid-xu4  = "odroid-xu3"
+O_KERNEL_CONFIG_odroid-xu3-lite  = "odroid-xu3"
 O_KERNEL_CONFIG_odroid-c2  = "odroid-c2"
 
 require linux-stable.inc
@@ -24,3 +27,5 @@ do_deploy_append_odroid-c2 () {
 } 
 
 FILES_${PN} += "/boot/uImage"
+
+COMPATIBLE_MACHINE = "(odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite)"
