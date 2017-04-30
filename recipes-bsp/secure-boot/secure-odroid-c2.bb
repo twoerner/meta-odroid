@@ -26,7 +26,7 @@ do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
 do_compile () {
-	cp ${DEPLOY_DIR_IMAGE}/u-boot.bin ${S}/bl33.bin
+	cp ${DEPLOY_DIR_IMAGE}/u-boot-odroid-c2.bin ${S}/bl33.bin
 
 	fip_create --bl30 ${WORKDIR}/bl30.bin --bl301 ${WORKDIR}/bl301.bin --bl31 ${WORKDIR}/bl31.bin --bl33 ${S}/bl33.bin ${B}/fip.bin
 	fip_create --dump ${B}/fip.bin
@@ -40,7 +40,7 @@ do_deploy () {
     install -d ${DEPLOY_DIR_IMAGE}
     install -m 755  ${S}/boot.ini ${DEPLOY_DIR_IMAGE}
     install -m 755  ${S}/bl1.bin.hardkernel ${DEPLOY_DIR_IMAGE}
-    install -m 755  ${B}/u-boot.bin_signed ${DEPLOY_DIR_IMAGE}
+    install -m 755  ${B}/u-boot.bin_signed ${DEPLOY_DIR_IMAGE}/u-boot.bin
 }
 
 addtask deploy before do_build after do_compile
