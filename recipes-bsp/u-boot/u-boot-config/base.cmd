@@ -1,18 +1,6 @@
-# This is an example file to generate boot.scr - a boot script for U-Boot
-# Generate boot.scr:
-# ./tools/mkimage -c none -A arm -T script -d autoboot.cmd boot.scr
-#
-# It requires a list of environment variables to be defined before load:
-# platform dependent: boardname, fdtfile, console
-# system dependent: mmcbootdev, mmcbootpart, mmcrootdev, mmcrootpart, rootfstype
-#
-setenv fdtfile	   KERNEL_DEVICETREE
-setenv fdtaddr     FDTADDR  
-setenv initrdname  "uInitrd"
-setenv initrdaddr  INITRADDR 
-setenv loaddtb     "load mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}"
-setenv loadinitrd  "load mmc ${mmcbootdev}:${mmcbootpart} ${initrdaddr} ${initrdname}"
-setenv loadkernel  "load mmc ${mmcbootdev}:${mmcbootpart} '${kerneladdr}' '${kernelname}'"
+setenv loaddtb     "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}"
+setenv loadinitrd  "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${initrdaddr} ${initrdname}"
+setenv loadkernel  "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} '${kerneladdr}' '${kernelname}'"
 setenv kernel_args "setenv bootargs ${console} root=/dev/mmcblk1p${mmcrootpart} rootfstype=${rootfstype} rootwait ${opts}"
 
 #### Routine: check_dtb - check that target.dtb exists on boot partition
@@ -41,7 +29,6 @@ setenv setboot_fit "
 if test -e '${boardname}'; then
 	setenv fdt_addr ;
 	setenv initrd_addr ;
-	setenv kerneladdr  0x42000000;
 	setenv kernelname  Image.itb;
 	setenv itbcfg      "\"#${boardname}\"";
 	setenv imgbootcmd  bootm;
@@ -51,7 +38,6 @@ fi"
 
 #### Routine: setboot_uimg - prepare env to boot uImage
 setenv setboot_uimg "
-	setenv kerneladdr 0x40007FC0;
 	setenv kernelname uImage;
 	setenv itbcfg     ;
 	setenv imgbootcmd bootm;
@@ -60,7 +46,6 @@ setenv setboot_uimg "
 
 #### Routine: setboot_zimg - prepare env to boot zImage
 setenv setboot_zimg "
-	setenv kerneladdr 0x40007FC0;
 	setenv kernelname zImage;
 	setenv itbcfg     ;
 	setenv imgbootcmd bootz;
