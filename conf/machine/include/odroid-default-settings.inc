@@ -18,4 +18,6 @@ UBOOT_BINARY ?= "u-boot-dtb.bin"
 MACHINE_FEATURES = "serial usbgadget usbhost vfat ext2 alsa screen"
 MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
 
+USE_BOOTSCR ?=  '1'
+
 IMAGE_FSTYPES_append = " ext4 sdcard"
