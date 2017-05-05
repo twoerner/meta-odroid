@@ -1,4 +1,4 @@
-require recipes-bsp/u-boot/u-boot.inc
+require u-boot.inc
 
 LICENSE="GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
@@ -6,33 +6,27 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 UBOOT_REPO_URI ?= "git://github.com/hardkernel/u-boot.git"
 UBOOT_BRANCH ?= "odroidc-v2011.03"
 
-SRCREV = "f631c80969b33b796d2d4c077428b4765393ed2b"
+SRCREV = "73843c840cc224228d0982bd59e8e5e98b5d465b"
 
 PV = "v2011.03+git${SRCPV}"
-
-PROVIDES =+ "u-boot ${PN}-config"
-PACKAGES =+ "u-boot-ini"
 
 SRC_URI = " \
     ${UBOOT_REPO_URI};branch=${UBOOT_BRANCH} \
     file://0001-ucl-use-host-compiler-supplied-by-OE.patch \
-    file://0003-use-lldiv-for-64-bit-division.patch \
     file://0001-compiler_gcc-do-not-redefine-__gnu_attributes.patch \
     file://0001-ARM-asm-io.h-use-static-inline.patch \
     file://0001-board.c-fix-inline-issue.patch \
     file://0001-compile-add-gcc5.patch \
     file://0001-main-fix-inline-issue.patch \
     file://0001-usb-use-define-not-func.patch \
+    file://0002-fix-build-error-under-gcc6.patch \
+    file://m8_osd_hw_build_fix.patch \
 "
 
 SRC_URI_append_odroid-c1 = " \
     file://boot.ini \
 "
-
-# check for hardfp
 SRC_URI_append = " ${@bb.utils.contains('TUNE_FEATURES','callconvention-hard',' file://0002-added-hardfp-support.patch ','',d)}"
-
-EXTRA_OEMAKE += 'HOSTCC="${BUILD_CC}"'
 
 PARALLEL_MAKE = ""
 
@@ -60,10 +54,12 @@ do_deploy_append () {
     ln -sf ${BL1_IMAGE} ${BL1_BINARY}
 }
 
-FILES_u-boot-ini = "/boot/boot.ini \
-"
+FILES_u-boot-ini = "/boot/boot.ini"
 CONFFILES_u-boot-ini = "/boot/boot.ini"
 
-COMPATIBLE_MACHINE = "(odroid-c1)"
-
 PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+PROVIDES =+ "u-boot ${PN}-config"
+PACKAGES =+ "u-boot-ini"
+
+COMPATIBLE_MACHINE = "(odroid-c1)"
