@@ -1,6 +1,6 @@
 setenv loaddtb     "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}"
 setenv loadinitrd  "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${initrdaddr} ${initrdname}"
-setenv loadkernel  "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} '${kerneladdr}' '${kernelname}'"
+setenv loadkernel  "${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${kerneladdr} ${kernelname}"
 setenv kernel_args "setenv bootargs ${console} root=/dev/mmcblk1p${mmcrootpart} rootfstype=${rootfstype} rootwait ${opts}"
 
 #### Routine: check_dtb - check that target.dtb exists on boot partition

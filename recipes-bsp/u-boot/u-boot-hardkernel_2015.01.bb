@@ -8,7 +8,6 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-2015-01:"
 PROVIDES = "u-boot"
 
 SRC_URI = " \
-	file://boot.ini \
 	file://u-boot.bin \
 	file://bl1.bin.hardkernel \
 	"
@@ -20,19 +19,8 @@ S = "${WORKDIR}"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
-do_compile () {
-	sed -i 's/UBOOT_LOADADDR/${UBOOT_LOADADDR}/'  ${S}/boot.ini
-	sed -i 's/UBOOT_DTB_LOADADDR/${UBOOT_DTB_LOADADDR}/'  ${S}/boot.ini
-	sed -i 's/UBOOT_BOOT_CMD/${UBOOT_BOOT_CMD}/'  ${S}/boot.ini
-	sed -i 's/UBOOT_CONSOLE/${UBOOT_CONSOLE}/'  ${S}/boot.ini
-	sed -i 's@UBOOT_BOOTARGS@${UBOOT_BOOTARGS}@'  ${S}/boot.ini
-	sed -i 's/KERNEL_DEVICETREE_FN/${KERNEL_DEVICETREE_FN}/'  ${S}/boot.ini
-}
-
-
 do_deploy () {
     install -d ${DEPLOYDIR}
-    install -m 755  ${S}/boot.ini ${DEPLOYDIR}
     install -m 755  ${S}/bl1.bin.hardkernel ${DEPLOYDIR}
     install -m 755  ${S}/u-boot.bin ${DEPLOYDIR}
 }
