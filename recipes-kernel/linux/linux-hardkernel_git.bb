@@ -24,6 +24,8 @@ SRC_URI = " \
   file://defconfig \
 "
 
+SRC_URI += "file://0001-compiler-gcc-integrate-the-various-compiler-gcc-345-.patch"
+
 S = "${WORKDIR}/git/"
 
 SRCREV = "${AUTOREV}"
