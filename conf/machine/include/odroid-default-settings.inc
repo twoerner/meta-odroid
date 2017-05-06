@@ -9,7 +9,7 @@ XSERVER ?= "xserver-xorg \
 
 
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-stable"
-PREFERRED_VERSION_linux-stable ?= "4.10%"
+PREFERRED_VERSION_linux-stable ?= "4.11%"
 LINUX_VERSION_EXTENSION ?= "-odroid"
 
 KERNEL_IMAGETYPE ?= "zImage"
