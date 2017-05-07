@@ -9,6 +9,7 @@ O_KERNEL_CONFIG_odroid-xu3  = "odroid-xu3"
 O_KERNEL_CONFIG_odroid-xu4  = "odroid-xu3"
 O_KERNEL_CONFIG_odroid-xu3-lite  = "odroid-xu3"
 O_KERNEL_CONFIG_odroid-c2  = "odroid-c2"
+O_KERNEL_CONFIG_odroid-c1  = "odroid-c1"
 
 require linux-stable.inc
 
@@ -28,4 +29,4 @@ do_deploy_append_odroid-c2 () {
 
 FILES_${PN} += "/boot/uImage"
 
-COMPATIBLE_MACHINE = "(odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite)"
+COMPATIBLE_MACHINE = "(odroid-c1|odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite)"
