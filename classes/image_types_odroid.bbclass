@@ -105,7 +105,7 @@ generate_odroid_c1_sdcard () {
 
     mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
 
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE} ::/uImage
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE} ::/${UBOOT_KENREL_NAME}
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE}-${KERNEL_DEVICETREE} ::/${KERNEL_DEVICETREE}
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.ini ::/boot.ini
 
