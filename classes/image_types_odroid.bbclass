@@ -21,6 +21,8 @@ UBOOT_BIN_POS_odroid-xu ?= "63"
 UBOOT_TZSW_POS_odroid-xu ?= "2111"
 UBOOT_ENV_POS_odroid-xu ?= "2625"
 
+UBOOT_SCRIPT_odroid_c1 = "boot.ini"
+
 #odroid-xu3
 UBOOT_B2_POS_odroid-xu3 ?= "${UBOOT_B2_POS_odroid-xu}"
 UBOOT_BIN_POS_odroid-xu3 ?= "${UBOOT_BIN_POS_odroid-xu}"
@@ -42,6 +44,7 @@ UBOOT_ENV_POS_odroid-xu4 ?= "${UBOOT_ENV_POS_odroid-xu}"
 #odroid-c2
 UBOOT_BIN_POS_odroid-c2 ?= "97"
 UBOOT_ENV_POS_odroid-c2 ?= "1440"
+UBOOT_SCRIPT ??= "boot.scr"
 
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
@@ -76,14 +79,6 @@ SDCARD_GENERATION_COMMAND_odroid-c1= "generate_odroid_c1_sdcard"
 SDCARD_GENERATION_COMMAND_odroid-c2= "generate_odroid_c2_sdcard"
 
 generate_odroid_c1_sdcard () {
-	# Create partition table
-    parted -s ${SDCARD} mklabel msdos
-    # Create boot partition and mark it as bootable
-    parted -s ${SDCARD} unit KiB mkpart primary fat16 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
-    # Create rootfs partition to the end of disk
-    parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
-    parted ${SDCARD} print
-
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
 #write u-boot and first bootloader as done by the Hardkernel script sd_fusing.sh at http://dn.odroid.com/S905/BootLoader/ODROID-C2/c2_bootloader.tar.gz
@@ -97,32 +92,9 @@ generate_odroid_c1_sdcard () {
 		exit 1
 		;;
 	esac
-
-    # create Boot partition
-    BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDCARD} unit b print \
-        | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 1024 }')
-    echo "boot.img blocks ${BOOT_BLOCKS}"
-
-    mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
-
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE} ::/${UBOOT_KENREL_NAME}
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE}-${KERNEL_DEVICETREE} ::/${KERNEL_DEVICETREE}
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.ini ::/boot.ini
-
-    # Burn Partitions
-    dd if=${WORKDIR}/boot.img of=${SDCARD} conv=notrunc seek=1 bs=$(expr ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
-    dd if=${SDIMG_ROOTFS} of=${SDCARD} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
 }
 
 generate_odroid_c2_sdcard () {
-	# Create partition table
-    parted -s ${SDCARD} mklabel msdos
-    # Create boot partition and mark it as bootable
-    parted -s ${SDCARD} unit KiB mkpart primary fat16 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
-    # Create rootfs partition to the end of disk
-    parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
-    parted ${SDCARD} print
-
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
 #write u-boot and first bootloader as done by the Hardkernel script sd_fusing.sh at http://dn.odroid.com/S905/BootLoader/ODROID-C2/c2_bootloader.tar.gz
@@ -136,21 +108,6 @@ generate_odroid_c2_sdcard () {
 		exit 1
 		;;
 	esac
-
-    # create Boot partition
-    BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDCARD} unit b print \
-        | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 1024 }')
-    echo "boot.img blocks ${BOOT_BLOCKS}"
-
-    mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
-
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${BOOT_IMAGE} ::/uImage
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/Image-${KERNEL_DEVICETREE_FN} ::/${KERNEL_DEVICETREE_FN}
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.scr ::/boot.scr
-
-    # Burn Partitions
-    dd if=${WORKDIR}/boot.img of=${SDCARD} conv=notrunc seek=1 bs=$(expr ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
-    dd if=${SDIMG_ROOTFS} of=${SDCARD} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
 }
 
 #
@@ -190,14 +147,6 @@ generate_odroid_c2_sdcard () {
 # 0                      2048     2MiB +  100MiB       2MiB +  100Mib + SDIMG_ROOTFS
 
 generate_odroid_xu_sdcard () {
-	# Create partition table
-    parted -s ${SDCARD} mklabel msdos
-    # Create boot partition and mark it as bootable
-    parted -s ${SDCARD} unit KiB mkpart primary fat16 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
-    # Create rootfs partition to the end of disk
-    parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
-    parted ${SDCARD} print
-
 	case "${IMAGE_BOOTLOADER}" in
 		u-boot)
             dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc seek=${UBOOT_B1_POS}
@@ -212,21 +161,6 @@ generate_odroid_xu_sdcard () {
 		exit 1
 		;;
 	esac
-
-    # create Boot partition
-    BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDCARD} unit b print \
-        | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 1024 }')
-    echo "boot.img blocks ${BOOT_BLOCKS}"
-
-    mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
-
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::/${KERNEL_IMAGETYPE}
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${KERNEL_DEVICETREE} ::/${KERNEL_DEVICETREE}
-    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/boot.scr ::/boot.scr
-
-    # Burn Partitions
-    dd if=${WORKDIR}/boot.img of=${SDCARD} conv=notrunc seek=1 bs=$(expr ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
-    dd if=${SDIMG_ROOTFS} of=${SDCARD} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
 }
 
 IMAGE_CMD_sdcard () {
@@ -251,7 +185,33 @@ IMAGE_CMD_sdcard () {
     echo "dd if=/dev/zero of=${SDCARD} bs=1 count=0 seek=$(expr 1024 \* ${SDIMG_SIZE})"
     dd if=/dev/zero of=${SDCARD} bs=1 count=0 seek=$(expr 1024 \* ${SDIMG_SIZE})
 
-	${SDCARD_GENERATION_COMMAND}
+    # Create partition table
+    parted -s ${SDCARD} mklabel msdos
+    # Create boot partition and mark it as bootable
+    parted -s ${SDCARD} unit KiB mkpart primary fat16 ${IMAGE_ROOTFS_ALIGNMENT} $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT})
+    # Create rootfs partition to the end of disk
+    parted -s ${SDCARD} -- unit KiB mkpart primary ext2 $(expr ${BOOT_SPACE_ALIGNED} \+ ${IMAGE_ROOTFS_ALIGNMENT}) -1s
+    parted ${SDCARD} print
+
+    ${SDCARD_GENERATION_COMMAND}
+
+    # create Boot partition
+    BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDCARD} unit b print \
+        | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 1024 }')
+    echo "boot.img blocks ${BOOT_BLOCKS}"
+
+    mkfs.vfat -n "Odroid" -S 512 -C ${WORKDIR}/boot.img ${BOOT_BLOCKS}
+
+    DTS_BASE_NAME=`basename ${KERNEL_DEVICETREE} | awk -F "." '{print $1}'`
+    UBOOT_SCRIPT_KERNEL=`echo ${UBOOT_KENREL_NAME} | awk '{print tolower($0)}'`
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::/${UBOOT_SCRIPT_KERNEL}
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${DTS_BASE_NAME}.dtb ::/${DTS_BASE_NAME}.dtb
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${UBOOT_SCRIPT} ::/${UBOOT_SCRIPT}
+
+    # Burn Partitions
+    dd if=${WORKDIR}/boot.img of=${SDCARD} conv=notrunc seek=1 bs=$(expr ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
+    dd if=${SDIMG_ROOTFS} of=${SDCARD} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
+
 }
 
 # The sdcard requires the rootfs filesystem to be built before using
