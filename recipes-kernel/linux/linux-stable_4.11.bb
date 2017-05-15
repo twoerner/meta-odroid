@@ -1,9 +1,9 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-LINUX_VERSION ?= "4.11"
+LINUX_VERSION ?= "4.11.1"
 
-SRCREV ?= "a351e9b9fc24e982ec2f0e76379a49826036da12"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=master"
+SRCREV ?= "4c71e91a048f77e97205831a7dd1fe86c63d2738"
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-4.11.y"
 
 O_KERNEL_CONFIG_odroid-xu3  = "odroid-xu3"
 O_KERNEL_CONFIG_odroid-xu4  = "odroid-xu3"
