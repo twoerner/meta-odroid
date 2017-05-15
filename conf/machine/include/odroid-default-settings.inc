@@ -7,16 +7,21 @@ XSERVER ?= "xserver-xorg \
            xf86-video-fbdev \
            xf86-input-keyboard"
 
-
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-stable"
 PREFERRED_VERSION_linux-stable ?= "4.11%"
 LINUX_VERSION_EXTENSION ?= "-odroid"
 
 KERNEL_IMAGETYPE ?= "zImage"
+
+PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
+PREFERRED_PROVIDER_u-boot ?= "u-boot"
+PREFERRED_VERSION_u-boot ?= "2017.05"
+
 UBOOT_BINARY ?= "u-boot-dtb.bin"
+UBOOT_ENV_SUFFIX ?= "scr"
 
 MACHINE_FEATURES = "serial usbgadget usbhost vfat ext2 alsa screen"
-MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
+MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree u-boot-config"
 
 USE_BOOTSCR ?=  '1'
 
