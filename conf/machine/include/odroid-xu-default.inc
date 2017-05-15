@@ -13,7 +13,7 @@ SERIAL_CONSOLE = "115200 ttySAC2"
 #specify u-boot parameters
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
 PREFERRED_PROVIDER_u-boot ?= "u-boot"
-PREFERRED_VERSION_u-boot ?= "2017.01%"
+PREFERRED_VERSION_u-boot ?= "2017.05%"
 
 UBOOT_FDT_LOADADDR ?= "0x40800000"
 UBOOT_LOADADDR ?= "0x40007FC0"
