@@ -16,45 +16,45 @@ UBOOT_SUFFIX_SDCARD ?= "${UBOOT_SUFFIX}"
 UBOOT_B1_POS ?= "1"
 
 #odroid-xu general
-UBOOT_B2_POS_odroid-xu ?= "31"
-UBOOT_BIN_POS_odroid-xu ?= "63"
-UBOOT_TZSW_POS_odroid-xu ?= "2111"
-UBOOT_ENV_POS_odroid-xu ?= "2625"
+#UBOOT_B2_POS_odroid-xu ?= "31"
+#UBOOT_BIN_POS_odroid-xu ?= "63"
+#UBOOT_TZSW_POS_odroid-xu ?= "2111"
+#UBOOT_ENV_POS_odroid-xu ?= "2625"
 
-UBOOT_SCRIPT_odroid_c1 = "boot.ini"
+#UBOOT_SCRIPT_odroid_c1 = "boot.ini"
 
 #odroid-xu3
-UBOOT_B2_POS_odroid-xu3 ?= "${UBOOT_B2_POS_odroid-xu}"
-UBOOT_BIN_POS_odroid-xu3 ?= "${UBOOT_BIN_POS_odroid-xu}"
-UBOOT_TZSW_POS_odroid-xu3 ?= "${UBOOT_TZSW_POS_odroid-xu}"
-UBOOT_ENV_POS_odroid-xu3 ?= "${UBOOT_ENV_POS_odroid-xu}"
+#UBOOT_B2_POS_odroid-xu3 ?= "${UBOOT_B2_POS_odroid-xu}"
+#UBOOT_BIN_POS_odroid-xu3 ?= "${UBOOT_BIN_POS_odroid-xu}"
+#UBOOT_TZSW_POS_odroid-xu3 ?= "${UBOOT_TZSW_POS_odroid-xu}"
+#UBOOT_ENV_POS_odroid-xu3 ?= "${UBOOT_ENV_POS_odroid-xu}"
 
 #odroid-xu3-lite
-UBOOT_B2_POS_odroid-xu3-lite ?= "${UBOOT_B2_POS_odroid-xu}"
-UBOOT_BIN_POS_odroid-xu3-lite ?= "${UBOOT_BIN_POS_odroid-xu}"
-UBOOT_TZSW_POS_odroid-xu3-lite ?= "${UBOOT_TZSW_POS_odroid-xu}"
-UBOOT_ENV_POS_odroid-xu3-lite ?= "${UBOOT_ENV_POS_odroid-xu}"
+#UBOOT_B2_POS_odroid-xu3-lite ?= "${UBOOT_B2_POS_odroid-xu}"
+#UBOOT_BIN_POS_odroid-xu3-lite ?= "${UBOOT_BIN_POS_odroid-xu}"
+#UBOOT_TZSW_POS_odroid-xu3-lite ?= "${UBOOT_TZSW_POS_odroid-xu}"
+#UBOOT_ENV_POS_odroid-xu3-lite ?= "${UBOOT_ENV_POS_odroid-xu}"
 
 #odroid-xu4
-UBOOT_B2_POS_odroid-xu4 ?= "${UBOOT_B2_POS_odroid-xu}"
-UBOOT_BIN_POS_odroid-xu4 ?= "${UBOOT_BIN_POS_odroid-xu}"
-UBOOT_TZSW_POS_odroid-xu4 ?= "${UBOOT_TZSW_POS_odroid-xu}"
-UBOOT_ENV_POS_odroid-xu4 ?= "${UBOOT_ENV_POS_odroid-xu}"
+#UBOOT_B2_POS_odroid-xu4 ?= "${UBOOT_B2_POS_odroid-xu}"
+#UBOOT_BIN_POS_odroid-xu4 ?= "${UBOOT_BIN_POS_odroid-xu}"
+#UBOOT_TZSW_POS_odroid-xu4 ?= "${UBOOT_TZSW_POS_odroid-xu}"
+#UBOOT_ENV_POS_odroid-xu4 ?= "${UBOOT_ENV_POS_odroid-xu}"
 
 #odroid-c2
-UBOOT_BIN_POS_odroid-c2 ?= "97"
-UBOOT_ENV_POS_odroid-c2 ?= "1440"
-UBOOT_SCRIPT ??= "boot.scr"
+#UBOOT_BIN_POS_odroid-c2 ?= "97"
+#UBOOT_ENV_POS_odroid-c2 ?= "1440"
+#UBOOT_SCRIPT ??= "boot.scr"
 
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
 
 # Set alignment to 1MB [in KiB]
-IMAGE_ROOTFS_ALIGNMENT_odroid-xu = "4096"
-IMAGE_ROOTFS_ALIGNMENT_odroid-xu3 = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
-IMAGE_ROOTFS_ALIGNMENT_odroid-xu3-lite = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
-IMAGE_ROOTFS_ALIGNMENT_odroid-xu4 = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
-IMAGE_ROOTFS_ALIGNMENT_odroid-c1 = "4096"
+#IMAGE_ROOTFS_ALIGNMENT_odroid-xu = "4096"
+#IMAGE_ROOTFS_ALIGNMENT_odroid-xu3 = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
+#IMAGE_ROOTFS_ALIGNMENT_odroid-xu3-lite = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
+#IMAGE_ROOTFS_ALIGNMENT_odroid-xu4 = "${IMAGE_ROOTFS_ALIGNMENT_odroid-xu}"
+#IMAGE_ROOTFS_ALIGNMENT_odroid-c1 = "4096"
 IMAGE_ROOTFS_ALIGNMENT_odroid-c2 = "1024"
 
 SDIMG_ROOTFS_TYPE ?= "ext4"
