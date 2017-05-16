@@ -21,7 +21,8 @@ UBOOT_BINARY ?= "u-boot-dtb.bin"
 UBOOT_ENV_SUFFIX ?= "scr"
 
 MACHINE_FEATURES = "serial usbgadget usbhost vfat ext2 alsa screen"
-MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree u-boot-config"
+MACHINE_EXTRA_RRECOMMENDS += " kernel-modules kernel-devicetree"
+EXTRA_IMAGEDEPENDS += "u-boot-config"
 
 USE_BOOTSCR ?=  '1'
 
