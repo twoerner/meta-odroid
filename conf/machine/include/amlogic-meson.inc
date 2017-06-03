@@ -1,6 +1,6 @@
 # Amlogic Meson Soc family
 
-SOC_FAMILY = "amlogic:meson"
+SOC_FAMILY = "amlogic:Meson"
 require conf/machine/include/soc-family.inc
 
 SERIAL_CONSOLE ?= "115200 ttyAML0"
