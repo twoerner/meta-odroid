@@ -7,6 +7,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 inherit uboot-boot-scr
 
+DEPENDS = "u-boot u-boot-mkimage-native"
+
 USE_BOOTSRC ?= "0"
 
 SRC_URI = "file://base.cmd"
