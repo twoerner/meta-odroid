@@ -4,6 +4,7 @@ inherit image_types
 # Construct buildable Odroid-c2 SD  image according to the partition table  suggested by Hardkernel  at http://odroid.com/dokuwiki/doku.php?id=en:c2_partition_table
 # tested with Odroid-c2 with EMMC only
 
+IMAGE_TYPEDEP_sdcard = "${SDIMG_ROOTFS_TYPE}"
 
 IMAGE_BOOTLOADER ?= "u-boot"
 
@@ -14,37 +15,6 @@ UBOOT_SUFFIX_SDCARD ?= "${UBOOT_SUFFIX}"
 #BOOT components
 #15k
 UBOOT_B1_POS ?= "1"
-
-#odroid-xu general
-#UBOOT_B2_POS_odroid-xu ?= "31"
-#UBOOT_BIN_POS_odroid-xu ?= "63"
-#UBOOT_TZSW_POS_odroid-xu ?= "2111"
-#UBOOT_ENV_POS_odroid-xu ?= "2625"
-
-#UBOOT_SCRIPT_odroid_c1 = "boot.ini"
-
-#odroid-xu3
-#UBOOT_B2_POS_odroid-xu3 ?= "${UBOOT_B2_POS_odroid-xu}"
-#UBOOT_BIN_POS_odroid-xu3 ?= "${UBOOT_BIN_POS_odroid-xu}"
-#UBOOT_TZSW_POS_odroid-xu3 ?= "${UBOOT_TZSW_POS_odroid-xu}"
-#UBOOT_ENV_POS_odroid-xu3 ?= "${UBOOT_ENV_POS_odroid-xu}"
-
-#odroid-xu3-lite
-#UBOOT_B2_POS_odroid-xu3-lite ?= "${UBOOT_B2_POS_odroid-xu}"
-#UBOOT_BIN_POS_odroid-xu3-lite ?= "${UBOOT_BIN_POS_odroid-xu}"
-#UBOOT_TZSW_POS_odroid-xu3-lite ?= "${UBOOT_TZSW_POS_odroid-xu}"
-#UBOOT_ENV_POS_odroid-xu3-lite ?= "${UBOOT_ENV_POS_odroid-xu}"
-
-#odroid-xu4
-#UBOOT_B2_POS_odroid-xu4 ?= "${UBOOT_B2_POS_odroid-xu}"
-#UBOOT_BIN_POS_odroid-xu4 ?= "${UBOOT_BIN_POS_odroid-xu}"
-#UBOOT_TZSW_POS_odroid-xu4 ?= "${UBOOT_TZSW_POS_odroid-xu}"
-#UBOOT_ENV_POS_odroid-xu4 ?= "${UBOOT_ENV_POS_odroid-xu}"
-
-#odroid-c2
-#UBOOT_BIN_POS_odroid-c2 ?= "97"
-#UBOOT_ENV_POS_odroid-c2 ?= "1440"
-#UBOOT_SCRIPT ??= "boot.scr"
 
 # Boot partition volume id
 BOOTDD_VOLUME_ID ?= "${MACHINE}"
@@ -63,12 +33,15 @@ SDIMG_ROOTFS = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.${SDIMG_ROOTFS_TYPE}"
 # Boot partition size [in KiB] to get boot partition with size of 128M
 BOOT_SPACE ?= "131000"
 
-do_image_sdcard[depends] += "parted-native:do_populate_sysroot \
-				dosfstools-native:do_populate_sysroot \
-                        	mtools-native:do_populate_sysroot \
-                        	coreutils-native:do_populate_sysroot \
-                        	virtual/kernel:do_deploy \
-                        	${@d.getVar('IMAGE_BOOTLOADER', True) and d.getVar('IMAGE_BOOTLOADER', True) + ':do_deploy' or ''}"
+do_image_sdcard[depends] += "\
+			parted-native:do_populate_sysroot \
+			dosfstools-native:do_populate_sysroot \
+                       	mtools-native:do_populate_sysroot \
+                       	coreutils-native:do_populate_sysroot \
+                       	virtual/kernel:do_deploy \
+			${IMAGE_BOOTLOADER}:do_deploy \
+			${@bb.utils.contains('KERNEL_IMAGETYPE', 'uImage', 'u-boot:do_deploy', '',d)} \
+			"
 
 SDCARD = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.sdcard"
 SDCARD_ROOTFS ?= "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.ext4"
@@ -213,7 +186,3 @@ IMAGE_CMD_sdcard () {
     dd if=${SDIMG_ROOTFS} of=${SDCARD} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
 
 }
-
-# The sdcard requires the rootfs filesystem to be built before using
-# it so we must make this dependency explicit.
-IMAGE_TYPEDEP_sdcard = "${@d.getVar('SDCARD_ROOTFS', 1).split('.')[-1]}"
