@@ -25,6 +25,9 @@ S = "${WORKDIR}"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
+do_compile[depends] += "u-boot:do_deploy"
+
+
 do_compile () {
 	cp ${DEPLOY_DIR_IMAGE}/u-boot-odroid-c2.bin ${S}/bl33.bin
 
