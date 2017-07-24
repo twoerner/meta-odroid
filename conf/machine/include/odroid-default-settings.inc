@@ -15,7 +15,7 @@ KERNEL_IMAGETYPE ?= "zImage"
 
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
 PREFERRED_PROVIDER_u-boot ?= "u-boot"
-PREFERRED_VERSION_u-boot ?= "2017.05"
+PREFERRED_VERSION_u-boot ?= "2017.07"
 
 UBOOT_BINARY ?= "u-boot-dtb.bin"
 UBOOT_ENV_SUFFIX ?= "scr"
