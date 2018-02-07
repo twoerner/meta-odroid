@@ -24,6 +24,6 @@ do_deploy_append_odroid-c2 () {
 	 install -m 0644 ${D}/${KERNEL_IMAGEDEST}/uImage ${DEPLOY_DIR_IMAGE}/uImage
 }
 
-FILES_kernel-base += " /boot/uImage "
+FILES_${KERNEL_PACKAGE_NAME}-base += " /boot/uImage "
 
 COMPATIBLE_MACHINE = "(odroid-c1|odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-xu4s)"
