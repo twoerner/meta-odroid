@@ -10,7 +10,7 @@ S = "${WORKDIR}"
 
 MALI_URI ?= "http://malideveloper.arm.com/downloads/drivers/binary"
 
-#RDEPENDS_${PN} += "kernel-module-mali-kbase"
+RDEPENDS_${PN} += "kernel-module-mali-utgard"
 
 INSANE_SKIP_${PN} = "ldflags dev-so"
 
