@@ -9,7 +9,7 @@ DEPENDS = "lzop-native u-boot-mkimage-native"
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=${KBRANCH}"
 
 O_KERNEL_CONFIG_odroid-xu3  = "odroid-xu3"
-O_KERNEL_CONFIG_odroid-xu4  = "odroid-xu3"
+O_KERNEL_CONFIG_odroid-xu4  = "odroid-xu4"
 O_KERNEL_CONFIG_odroid-xu3-lite  = "odroid-xu3"
 O_KERNEL_CONFIG_odroid-xu4s  = "odroid-xu4s"
 O_KERNEL_CONFIG_odroid-c2  = "odroid-c2"
