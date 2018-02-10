@@ -43,7 +43,7 @@ UBOOT_ENV_CONFIG ?= "${B}/${UBOOT_ENV}.txt"
 
 UBOOT_LOADADDRESS ?= "0x40007FC0"
 UBOOT_FDT_LOADADDR ?= "0x40800000"
-UBOOT_KENREL_NAME ?= "zimage"
+UBOOT_KERNEL_NAME ?= "zimage"
 UB_INITRD_NAME ?= ""
 UB_INITRD_ADDR ?= ""
 
@@ -130,7 +130,7 @@ python create_uboot_boot_txt() {
             imgbootcmd = localdata.getVar('UBOOT_BOOT_CMD')
             cfgfile.write('setenv imgbootcmd \"%s\" \n' % imgbootcmd) 
 
-            kernelname = localdata.getVar('UBOOT_KENREL_NAME')
+            kernelname = localdata.getVar('UBOOT_KERNEL_NAME')
             cfgfile.write('setenv kernelname %s\n' % kernelname)
 
             cfgfile.write('setenv loaddtb     \"${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}\"\n')

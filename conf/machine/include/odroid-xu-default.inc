@@ -11,7 +11,7 @@ EXTRA_IMAGEDEPENDS += "u-boot secure-odroid-xu3"
 UBOOT_FDT_LOADADDR ?= "0x40800000"
 UBOOT_LOADADDR ?= "0x40007FC0"
 UBOOT_CONSOLE ?= "console=ttySAC2,115200"
-UBOOT_KENREL_NAME ?= "zimage"
+UBOOT_KERNEL_NAME ?= "zimage"
 
 #odroid-xu general
 UBOOT_B2_POS ?= "31"
