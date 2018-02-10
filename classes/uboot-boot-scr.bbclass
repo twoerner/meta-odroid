@@ -3,8 +3,6 @@
 # This provides a method to create a boot.ini or boot.scr files to help
 # configure u-boot at boot up time
 #
-# UBOOT_LOADADDR: default kernel image load address, e.g., "0x01080000"
-#
 # UB_FDT_FILE: default device tree. e.g., "KERNEL_DEVICETREE"
 #
 # UBOOT_FDT_LOADADDR: default Device tree load address, e.g., "0x01000000"
@@ -43,7 +41,7 @@ UBOOT_ENV ?= "boot"
 
 UBOOT_ENV_CONFIG ?= "${B}/${UBOOT_ENV}.txt"
 
-UBOOT_LOADADDR ?= "0x40007FC0"
+UBOOT_LOADADDRESS ?= "0x40007FC0"
 UBOOT_FDT_LOADADDR ?= "0x40800000"
 UBOOT_KENREL_NAME ?= "zimage"
 UB_INITRD_NAME ?= ""
@@ -119,7 +117,7 @@ python create_uboot_boot_txt() {
             if initrd:
                 cfgfile.write('setenv initrdname  \"%s\"\n' % initrd) 
 
-            kerneladdr = localdata.getVar('UBOOT_LOADADDR')
+            kerneladdr = localdata.getVar('UBOOT_LOADADDRESS')
             cfgfile.write('setenv kerneladdr \"%s\"\n' % kerneladdr)
 
             fdtaddr = localdata.getVar('UBOOT_FDT_LOADADDR')
