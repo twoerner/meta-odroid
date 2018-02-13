@@ -30,6 +30,7 @@
 # Copyright (C) 2017, Armin Kuster <akuster808@gmail.com> 
 # All Rights Reserved Released under the MIT license (see packages/COPYING)
 #
+inherit kernel-arch
 
 DEPENDS += "u-boot-mkimage-native"
 
@@ -150,3 +151,13 @@ python create_uboot_boot_txt() {
 FILES_${PN} += "/*.${UBOOT_ENV_SUFFIX}"
 
 do_compile[prefuncs] += "create_uboot_boot_txt"
+
+do_compile_prepend () {
+    if [ "${UBOOT_ENV_SUFFIX}" = "scr" ]; then
+        echo "uboot-mkimage -C none -A ${ARCH} -T script -d ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}"
+        uboot-mkimage -C none -A ${ARCH} -T script -d ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}
+    else
+        cp ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}
+    fi
+}
+

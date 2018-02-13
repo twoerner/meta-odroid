@@ -24,13 +24,4 @@ do_compile_append_odroid-c2 () {
         dd if=${B}/${UBOOT_BINARY}.tmp of=${B}/${UBOOT_BINARY} bs=512 skip=96
 }
 
-do_compile_prepend () {
-    if [ "${UBOOT_ENV_SUFFIX}" = "scr" ]; then
-        mkimage -C none -A arm -T script -d ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}
-    else
-        cp ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}
-    fi
-}
-
-
 COMPATIBLE_MACHINE = "(odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-xu4s)"
