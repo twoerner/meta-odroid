@@ -5,8 +5,6 @@ inherit uboot-boot-scr
 
 DEPENDS += "u-boot-mkimage-native atf-native"
 
-SRC_URI_append = " file://base.cmd"
-
 SRC_URI_append_odroid-c2 = "\
     file://odroid-c2/aml_encrypt_gxb \
     file://odroid-c2/bl2.package  \
@@ -35,4 +33,4 @@ do_compile_prepend () {
 }
 
 
-COMPATIBLE_MACHINE = "(odroid-c1|odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-xu4s)"
+COMPATIBLE_MACHINE = "(odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-xu4s)"

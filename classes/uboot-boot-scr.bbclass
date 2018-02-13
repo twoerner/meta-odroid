@@ -58,8 +58,6 @@ UB_LOAD_CMD ?= "load"
 UB_EXTRA_ENV ?= ""
 UB_FILE_TITLE ?= "#"
 
-BASE_ENV_CONFIG = "${S}/base.cmd"
-
 python create_uboot_boot_txt() {
     if d.getVar("USE_BOOTSCR") != "1":
       return
@@ -70,10 +68,6 @@ python create_uboot_boot_txt() {
     cfile = d.getVar('UBOOT_ENV_CONFIG')
     if not cfile:
         bb.fatal('Unable to read UBOOT_ENV_CONFIG')
-
-    basefile = d.getVar('BASE_ENV_CONFIG')
-    if not basefile:
-        bb.fatal('Unable to read BASE_ENV_CONFIG')
 
     localdata = bb.data.createCopy(d)
 
