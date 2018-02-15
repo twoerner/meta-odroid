@@ -17,4 +17,4 @@ do_deploy_append () {
     install -m 755  ${S}/tzsw.bin.hardkernel ${DEPLOYDIR}
 }
 
-COMPATIBLE_MACHINE  = "(odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-xu4s)"
+COMPATIBLE_MACHINE  = "(odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-hc1)"

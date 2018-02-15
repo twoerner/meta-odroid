@@ -45,7 +45,7 @@ SDCARD_GENERATION_COMMAND_odroid-xu4= "generate_odroid_xu_sdcard"
 SDCARD_GENERATION_COMMAND_odroid-xu3-lite= "generate_odroid_xu_sdcard"
 SDCARD_GENERATION_COMMAND_odroid-c1= "generate_odroid_c1_sdcard"
 SDCARD_GENERATION_COMMAND_odroid-c2= "generate_odroid_c2_sdcard"
-SDCARD_GENERATION_COMMAND_odroid-xu4s= "generate_odroid_xu_sdcard"
+SDCARD_GENERATION_COMMAND_odroid-hc1= "generate_odroid_xu_sdcard"
 
 generate_odroid_c1_sdcard () {
 	case "${IMAGE_BOOTLOADER}" in
