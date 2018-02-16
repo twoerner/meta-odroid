@@ -34,3 +34,4 @@ patch 0034-ARM64-dts-meson-gx-grow-reset-controller-memory-zone.patch
 patch 0035-ARM64-dts-odroid-c2-Add-HDMI-and-CEC-Nodes.patch
 patch 0036-ARM64-dts-meson-activate-hdmi-audio-HDMI-enabled-boa.patch
 patch 0037-net-phy-meson-gxl-detect-LPA-corruption.patch
+patch 0037-drm-meson-fix-vsync-buffer-update.patch
