@@ -5,7 +5,6 @@ DESCRIPTION = "Enable Odroid LCD 3.5 inch panel"
 HOMEPAGE = ""
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
-DEPENDS = ""
 
 SRC_URI = "file://odroid-lcd35.service \
            file://odroid-lcd35.sysvinit \
@@ -13,12 +12,6 @@ SRC_URI = "file://odroid-lcd35.service \
           "
 
 inherit systemd update-rc.d
-
-# Enable 3.5' TFT Screen
-KERNEL_MODULE_AUTOLOAD_append_odroid-c2 = " aml_i2c pwm-meson pwm-ctrl fbtft_device flexfb sx865x "
-module_conf_fbtft_device = "options fbtft_device name=flexpfb rotate=270"
-module_conf_flexfb = "options flexfb chip=ili9488"
-KERNEL_MODULE_PROBECONF += "fbtft_device flexfb"
 
 do_install_append () {
    install -D -m 0644 ${WORKDIR}/lcd-blacklist.conf ${D}${sysconfdir}/modprobe.d/lcd-blacklist.conf
@@ -35,3 +28,13 @@ INITSCRIPT_PARAMS = "defaults"
 SYSTEMD_SERVICE_${PN} = "odroid-lcd35.service"
 
 FILES_${PN} += "${sysconfdir}/modprobe.d"
+
+RDEPENDS_${PN}_odroid-c2 = "\
+                 kernel-module-aml-i2c \
+                 kernel-module-pwm-meson \
+                 kernel-module-pwm-ctrl \
+                 kernel-module-fbtft-device \
+                 kernel-module-flexfb \
+                 kernel-module-sx865x \
+                "
+
