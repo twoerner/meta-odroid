@@ -68,7 +68,7 @@ generate_odroid_c2_sdcard () {
 #write u-boot and first bootloader as done by the Hardkernel script sd_fusing.sh at http://dn.odroid.com/S905/BootLoader/ODROID-C2/c2_bootloader.tar.gz
            	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=1 count=442
            	dd if=${DEPLOY_DIR_IMAGE}/bl1.bin.hardkernel of=${SDCARD} conv=notrunc bs=512 skip=1 seek=1
-         	dd if=${DEPLOY_DIR_IMAGE}/u-boot-odroid-c2.bin of=${SDCARD} conv=notrunc bs=512 seek=97
+         	dd if=${DEPLOY_DIR_IMAGE}/u-boot-${MACHINE}.${UBOOT_SUFFIX} of=${SDCARD} conv=notrunc bs=512 seek=97
 		;;
 
 		*)
