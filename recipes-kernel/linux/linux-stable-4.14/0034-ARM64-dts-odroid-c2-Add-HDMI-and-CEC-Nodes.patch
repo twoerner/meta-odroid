@@ -1,7 +1,7 @@
-From 5221675b31e8a3c17a94c7f058c33d0751595c2b Mon Sep 17 00:00:00 2001
+From e90d469874c37ec0e7925aeefbf74d5248182573 Mon Sep 17 00:00:00 2001
 From: Neil Armstrong <narmstrong@baylibre.com>
 Date: Mon, 16 Oct 2017 17:00:26 +0200
-Subject: [PATCH 35/38] ARM64: dts: odroid-c2: Add HDMI and CEC Nodes
+Subject: [PATCH 34/39] ARM64: dts: odroid-c2: Add HDMI and CEC Nodes
 
 Now the VPU Power Domain has been fixed while boothing from Mainline U-Boot,
 VPU and HDMI nodes can finally be added to the Odroid-C2 DTS.
@@ -12,7 +12,7 @@ Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
  1 file changed, 30 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-index c2b6df4..896dfb3 100644
+index 4221e1ffb454..dc3d1badf9ce 100644
 --- a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
 +++ b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
 @@ -135,6 +135,24 @@
@@ -60,5 +60,5 @@ index c2b6df4..896dfb3 100644
  	status = "okay";
  	pinctrl-0 = <&i2c_a_pins>;
 -- 
-2.7.4
+2.16.1
 
