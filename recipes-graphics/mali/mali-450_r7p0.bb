@@ -1,5 +1,7 @@
 require mali.inc
 
+DEFAULT_PREFERENCE = "-1"
+
 DESCRIPTION = "Mali 450 GPU Binaries for ODROID-C2"
 
 LIC_FILES_CHKSUM = "file://${S}/../../../../README.md;md5=b4d850abae9a934f53b165f0c71518b2"
@@ -41,5 +43,5 @@ do_install () {
 	ln -sf libMali.so ${D}/${libdir}/libOpenCL.so
 }
 
-RDEPENDS_${PN} += "kernel-module-mali-utgard"
+#RDEPENDS_${PN} += "kernel-module-mali-utgard"
 COMPATIBLE_MACHINE = "odroid-c2"
