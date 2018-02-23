@@ -40,5 +40,5 @@ MACHINE_EXTRA_RRECOMMENDS += " kernel-modules kernel-devicetree"
 
 EXTRA_IMAGEDEPENDS += "u-boot"
 
-IMAGE_FSTYPES_append = " ext4 sdcard"
+IMAGE_FSTYPES += " ext4 sdcard"
 IMAGE_CLASSES += "image_types_odroid"
