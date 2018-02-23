@@ -6,4 +6,6 @@ SRCREV ?= "7e83b2ff485cacbf73d27f821e07a8c78ad8cc68"
 
 require linux-stable.inc
 
-SRC_URI += "file://meson64.scc"
+SRC_URI += "file://meson64.scc \
+            file://touchscreen.cfg \
+"

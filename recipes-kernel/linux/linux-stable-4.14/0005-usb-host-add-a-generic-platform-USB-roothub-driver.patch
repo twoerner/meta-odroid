@@ -1,7 +1,7 @@
-From 0e1b7fc3afdff8b63a2ed34ae6222cc02b043d62 Mon Sep 17 00:00:00 2001
+From d17f86f9c990960627fbcb697b120c852ce1e7c4 Mon Sep 17 00:00:00 2001
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Date: Tue, 10 Jan 2017 18:59:43 +0100
-Subject: [PATCH 05/38] usb: host: add a generic platform USB roothub driver
+Subject: [PATCH 05/39] usb: host: add a generic platform USB roothub driver
 
 Many SoC platforms have separate devices for the USB PHY which are
 registered through the generic PHY framework. These PHYs have to be
@@ -39,7 +39,7 @@ Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
 
 diff --git a/Documentation/devicetree/bindings/usb/usb-roothub.txt b/Documentation/devicetree/bindings/usb/usb-roothub.txt
 new file mode 100644
-index 0000000..23b24b6
+index 000000000000..23b24b68d74d
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/usb/usb-roothub.txt
 @@ -0,0 +1,46 @@
@@ -90,7 +90,7 @@ index 0000000..23b24b6
 +		};
 +	}
 diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
-index fa5692d..b8b05c7 100644
+index fa5692dec832..b8b05c786b2a 100644
 --- a/drivers/usb/host/Kconfig
 +++ b/drivers/usb/host/Kconfig
 @@ -805,6 +805,9 @@ config USB_HCD_SSB
@@ -104,7 +104,7 @@ index fa5692d..b8b05c7 100644
  	bool "HCD test mode support"
  	---help---
 diff --git a/drivers/usb/host/Makefile b/drivers/usb/host/Makefile
-index 4ab2689..873ebd9 100644
+index 4ab2689c8952..873ebd9250d3 100644
 --- a/drivers/usb/host/Makefile
 +++ b/drivers/usb/host/Makefile
 @@ -30,6 +30,8 @@ obj-$(CONFIG_USB_WHCI_HCD)	+= whci/
@@ -118,7 +118,7 @@ index 4ab2689..873ebd9 100644
  obj-$(CONFIG_USB_EHCI_HCD_PLATFORM)	+= ehci-platform.o
 diff --git a/drivers/usb/host/platform-roothub.c b/drivers/usb/host/platform-roothub.c
 new file mode 100644
-index 0000000..84837e4
+index 000000000000..84837e42b006
 --- /dev/null
 +++ b/drivers/usb/host/platform-roothub.c
 @@ -0,0 +1,146 @@
@@ -270,7 +270,7 @@ index 0000000..84837e4
 +EXPORT_SYMBOL_GPL(platform_roothub_power_off);
 diff --git a/drivers/usb/host/platform-roothub.h b/drivers/usb/host/platform-roothub.h
 new file mode 100644
-index 0000000..bde0bf2
+index 000000000000..bde0bf299e3b
 --- /dev/null
 +++ b/drivers/usb/host/platform-roothub.h
 @@ -0,0 +1,14 @@
@@ -289,5 +289,5 @@ index 0000000..bde0bf2
 +
 +#endif /* USB_HOST_PLATFORM_ROOTHUB_H */
 -- 
-2.7.4
+2.16.1
 

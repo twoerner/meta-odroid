@@ -1,7 +1,7 @@
-From b940b2533f1bb3718ed50f4dc9091f8494e6f37a Mon Sep 17 00:00:00 2001
+From 44bdde1f7bfc970011fe7c063d70d5fd08f777be Mon Sep 17 00:00:00 2001
 From: Jerome Brunet <jbrunet@baylibre.com>
 Date: Fri, 8 Dec 2017 12:08:11 +0100
-Subject: [PATCH 37/38] net: phy: meson-gxl: detect LPA corruption
+Subject: [PATCH 36/39] net: phy: meson-gxl: detect LPA corruption
 
 The purpose of this change is to fix the incorrect detection of the link
 partner (LP) advertised capabilities which sometimes happens with this PHY
@@ -29,7 +29,7 @@ Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
  1 file changed, 73 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/phy/meson-gxl.c b/drivers/net/phy/meson-gxl.c
-index 1ea69b7..700007d 100644
+index 1ea69b7585d9..700007dd4be5 100644
 --- a/drivers/net/phy/meson-gxl.c
 +++ b/drivers/net/phy/meson-gxl.c
 @@ -22,6 +22,7 @@
@@ -128,5 +128,5 @@ index 1ea69b7..700007d 100644
  		.resume         = genphy_resume,
  	},
 -- 
-2.7.4
+2.16.1
 
