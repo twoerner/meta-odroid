@@ -38,3 +38,4 @@ RDEPENDS_${PN}_odroid-c2 = "\
                  kernel-module-sx865x \
                 "
 
+COMPATIBLE_MACHINE = "(odroid-c2|odroid-xu4)"
