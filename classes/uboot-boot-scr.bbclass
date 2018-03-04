@@ -15,13 +15,19 @@
 #
 # UBOOT_LOAD_CMD: default partition, e.g., "load"
 #
+# UBOOT_BOOTARGS: 
+#
 # UBOOT_BOOTDEV: default boot device #
 #
 # UBOOT_BOOTPART: default boot partition #
+# 
+# UBOOT_BOOTTYPE: default mmc
 #
 # UBOOT_ROOTDEV: default root device #
 #
 # UBOOT_ROOTPART: default root device #
+#
+# UBOOT_ROOTTYPE:  default mmcblk1p
 #
 # UBOOT_FILE_TITLE: default partition, e.g., "UBOOT-CONFIG"
 #
@@ -42,18 +48,19 @@ UBOOT_ENV ?= "boot"
 
 UBOOT_ENV_CONFIG ?= "${B}/${UBOOT_ENV}.txt"
 
-UBOOT_LOADADDRESS ?= "0x40007FC0"
-UBOOT_FDT_LOADADDR ?= "0x40800000"
-UBOOT_KERNEL_NAME ?= "zimage"
+UBOOT_LOADADDRESS ?= ""
+UBOOT_FDT_LOADADDR ?= ""
+UBOOT_BOOTARGS ?= "${console} root=/dev/${roottype}${rootpart} rw rootwait"
+UBOOT_KERNEL_NAME ?= ""
 UBOOT_INITRD_NAME ?= ""
 UBOOT_INITRD_ADDR ?= ""
 
-#UBOOT_CONSOLE ?= "console=ttySAC2,115200"
+UBOOT_CONSOLE ?= ""
 UBOOT_BOOTDEV  ?= "0"
 UBOOT_BOOTPART ?= "1"
 UBOOT_ROOTDEV ?= ""
 UBOOT_ROOTPART ?= "2"
-UBOOT_BOOT_CMD ?= "bootz"
+UBOOT_BOOT_CMD ?= ""
 
 UBOOT_LOAD_CMD ?= "load"
 UBOOT_EXTRA_ENV ?= ""
@@ -87,21 +94,27 @@ python create_uboot_boot_txt() {
             loadcmd = localdata.getVar('UBOOT_LOAD_CMD')
             cfgfile.write('setenv loadcmd \"%s\" \n' % loadcmd) 
 
-            mmcbootdev = localdata.getVar('UBOOT_BOOTDEV')
-            if mmcbootdev:
-                cfgfile.write('setenv mmcbootdev %s\n' % mmcbootdev )
+            bootdev = localdata.getVar('UBOOT_BOOTDEV')
+            if bootdev:
+                cfgfile.write('setenv bootdev %s\n' % bootdev )
 
-            mmcbootpart = localdata.getVar('UBOOT_BOOTPART')
-            if mmcbootpart:
-                cfgfile.write('setenv mmcbootpart %s\n' % mmcbootpart )
+            boottype = localdata.getVar('UBOOT_BOOTTYPE')
+            cfgfile.write('setenv boottype %s\n' % boottype )
 
-            mmcrootdev = localdata.getVar('UBOOT_ROOTDEV')
-            if mmcrootdev:
-                cfgfile.write('setenv mmcrootdev %s\n' % mmcrootdev)
+            roottype = localdata.getVar('UBOOT_ROOTTYPE')
+            cfgfile.write('setenv roottype %s\n' % roottype )
 
-            mmcrootpart = localdata.getVar('UBOOT_ROOTPART')
-            if mmcrootpart :
-                cfgfile.write('setenv mmcrootpart %s\n' % mmcrootpart )
+            bootpart = localdata.getVar('UBOOT_BOOTPART')
+            if bootpart:
+                cfgfile.write('setenv bootpart %s\n' % bootpart )
+
+            rootdev = localdata.getVar('UBOOT_ROOTDEV')
+            if rootdev:
+                cfgfile.write('setenv rootdev %s\n' % rootdev)
+
+            rootpart = localdata.getVar('UBOOT_ROOTPART')
+            if rootpart :
+                cfgfile.write('setenv rootpart %s\n' % rootpart )
 
             # initrd
             initrdaddr = localdata.getVar('UBOOT_INITRD_ADDR')
@@ -128,13 +141,21 @@ python create_uboot_boot_txt() {
             kernelname = localdata.getVar('UBOOT_KERNEL_NAME')
             cfgfile.write('setenv kernelname %s\n' % kernelname)
 
-            cfgfile.write('setenv loaddtb     \"${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${fdtaddr} ${fdtfile}\"\n')
-            cfgfile.write('setenv loadkernel  \"${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${kerneladdr} ${kernelname}\"\n')
+            uboot_extra_envs = (d.getVar('UBOOT_EXTRA_ENV') or "").split("#")
+            if uboot_extra_envs:
+                for e in uboot_extra_envs:
+                    cfgfile.write('%s\n' % e)
+
+
+            cfgfile.write('setenv loaddtb     \"${loadcmd} ${boottype} ${bootdev}:${bootpart} ${fdtaddr} ${fdtfile}\"\n')
+            cfgfile.write('setenv loadkernel  \"${loadcmd} ${boottype} ${bootdev}:${bootpart} ${kerneladdr} ${kernelname}\"\n')
 
             if initrd:
-                cfgfile.write('setenv loadinitrd  \"${loadcmd} mmc ${mmcbootdev}:${mmcbootpart} ${initrdaddr} ${initrdname}"\n')
+                cfgfile.write('setenv loadinitrd  \"${loadcmd} ${boottype} ${bootdev}:${bootpart} ${initrdaddr} ${initrdname}"\n')
 
-            cfgfile.write('setenv bootargs \"${console} root=/dev/mmcblk1p${mmcrootpart} rw rootwait\"\n')
+            bootargs = localdata.getVar('UBOOT_BOOTARGS')
+            cfgfile.write('setenv bootargs \" %s \"\n' % bootargs)
+
             cfgfile.write('run loaddtb\n')
             cfgfile.write('run loadkernel\n')
 
