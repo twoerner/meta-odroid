@@ -25,4 +25,5 @@ do_install_append() {
 	install -D -m 0755 ${B}/simple_framework/libsimple_framework2.so ${d}${libidr}
 	install -D -m 0755 ${B}/simple_framework/libsimple_framework3.so ${D}${libdir}
 }
-COMPATIBLE_HOST = 'arm.*-linux'
+
+COMPATIBLE_MACHINE = "(odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite)"
