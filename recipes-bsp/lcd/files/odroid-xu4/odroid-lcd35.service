@@ -1,8 +1,6 @@
 [Unit]
 Description=Odroid LCD 3.5
-
-[Path]
-PathExists=/dev/fb2
+ConditionPathExists=/dev/fb2
 
 [Service]
 Type=oneshot
@@ -13,4 +11,3 @@ StandardOutput=tty
 
 [Install]
 WantedBy=multi-user.target
-
