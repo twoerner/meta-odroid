@@ -1,8 +1,6 @@
 [Unit]
 Description=Odroid LCD 3.5
-
-[Path]
-PathExists=/dev/fb2
+ConditionPathExists=/dev/fb2
 
 [Service]
 Type=oneshot
@@ -17,4 +15,3 @@ ExecStop=/bin/sh -c 'echo 0 > /sys/devices/platform/pwm-ctrl/duty0'
 
 [Install]
 WantedBy=multi-user.target
-
