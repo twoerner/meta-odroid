@@ -21,7 +21,7 @@ USE_BOOTSRC ?= "1"
 UBOOT_ENV  ?= "boot"
 UBOOT_BINARY ?= "u-boot-dtb.bin"
 UBOOT_ENV_SUFFIX ?= "scr"
-UBOOT_SCRIPT ?= "boot.scr"
+UBOOT_SCRIPT ?= "boot.${UBOOT_ENV_SUFFIX}"
 UBOOT_LOAD_CMD ?= "fatload"
 UBOOT_BOOT_CMD ?= "bootz"
 
