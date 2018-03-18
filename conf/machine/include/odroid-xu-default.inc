@@ -6,6 +6,8 @@ include conf/machine/include/odroid-default-settings.inc
 DEFAULTTUNE = "cortexa15hf-neon"
 include conf/machine/include/tune-cortexa15.inc
 
+PREFERRED_VERSION_linux-stable = "4.15%"
+
 EXTRA_IMAGEDEPENDS += "secure-odroid"
 
 UBOOT_FDT_LOADADDR = "0x40800000"
