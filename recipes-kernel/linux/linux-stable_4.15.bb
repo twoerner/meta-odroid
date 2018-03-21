@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-LINUX_VERSION ?= "4.15.1"
+LINUX_VERSION ?= "4.15.11"
 KBRANCH ?= "linux-4.15.y"
 SRCREV ?= "51d480eafd15d9fea08d58aa828f9b02332a0396"
 
