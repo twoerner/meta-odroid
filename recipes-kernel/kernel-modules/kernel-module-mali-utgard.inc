@@ -20,6 +20,12 @@ MALI_FLAGS ?= ""
 
 do_compile() {
 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+	export USING_UMP=0
+	export BUILD=debug
+	export MALI_DMA_BUF_MAP_ON_ATTACH=1
+	export USING_PROFILING=0
+	export MALI_PLATFORM=meson
+	export USING_DVFS=0
 	oe_runmake -C ${STAGING_KERNEL_DIR} \
 		M=$(pwd)/driver/src/devicedrv/mali \
 		O=${STAGING_KERNEL_BUILDDIR} \
