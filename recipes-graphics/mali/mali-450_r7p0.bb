@@ -21,6 +21,7 @@ S = "${WORKDIR}/buildroot_openlinux/buildroot/package/meson-mali"
 do_install () {
 	# Create MALI manifest
 	install -m 755 -d ${D}${libdir} ${D}${libdir}/pkgconfig ${D}${includedir}
+	rm -fr ${S}/lib/pkgconfig/gbm
 	cp -av --no-preserve=ownership ${S}/lib/pkgconfig/* ${D}${libdir}/pkgconfig
 	cp -av --no-preserve=ownership ${S}/include/{EGL,GLES*,KHR} ${D}${includedir}
 	if [ "${USE_X11}" = "yes" ]; then
@@ -38,7 +39,6 @@ do_install () {
 	fi
 	cp -av --no-preserve=ownership ${S}/lib/libE*.so* ${D}${libdir}
 	cp -av --no-preserve=ownership ${S}/lib/libG*.so* ${D}${libdir}
-	cp -av --no-preserve=ownership ${S}/lib/libgbm.so* ${D}${libdir}
 	patchelf --set-soname libMali.so ${D}${libdir}/libMali.so
 	ln -sf libMali.so ${D}/${libdir}/libOpenCL.so
 }

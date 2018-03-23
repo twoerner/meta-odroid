@@ -25,9 +25,9 @@ do_compile[noexec] = "1"
 FILES_SOLIBSDEV = ""
 FILES_${PN} += "${libdir}/*.so"
 
-RREPLACES_${PN} += "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm"
-RPROVIDES_${PN} += "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm"
-RCONFLICTS_${PN} += "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2 libgbm"
+RREPLACES_${PN} += "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2"
+RPROVIDES_${PN} += "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2"
+RCONFLICTS_${PN} += "libegl libegl1 libgles1 libglesv1-cm1 libgles2 libglesv2-2"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 PACKAGES = "${PN} ${PN}-dev"
