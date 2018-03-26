@@ -1,8 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-LINUX_VERSION ?= "4.16-rc6"
+LINUX_VERSION ?= "4.16-rc7"
 KBRANCH ?= "master"
-SRCREV ?= "c698ca5278934c0ae32297a8725ced2e27585d7f"
+SRCREV ?= "3eb2ce825ea1ad89d20f7a3b5780df850e4be274"
 
 require linux-mainline.inc
 
