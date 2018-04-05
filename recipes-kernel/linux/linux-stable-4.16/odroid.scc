@@ -1,0 +1,5 @@
+patch 0001-exynos5422-odroidhc1.dts-fix-booting-from-mmc.patch
+patch 0001-ARM-dts-meson8b-extend-ethernet-controller-descripti.patch
+patch 0001-ARM-dts-meson8b-odroidc1-ethernet-support.patch
+patch 0001-ARM-dts-meson8b-odroidc1-add-microSD-support.patch
+patch 0001-ARM-dts-meson8b-the-CBUS-GPIO-controller-only-has-83.patch
