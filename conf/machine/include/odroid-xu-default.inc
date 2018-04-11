@@ -19,3 +19,18 @@ UBOOT_B2_POS = "31"
 UBOOT_BIN_POS = "63"
 UBOOT_TZSW_POS = "2111"
 UBOOT_ENV_POS = "2625"
+
+WKS_FILE ?= "odroid_xu-u-boot.wks"
+
+IMAGE_FSTYPES_append = " wic wic.xz"
+
+# Do not update fstab file when using wic images
+WIC_CREATE_EXTRA_ARGS ?= "--no-fstab-update"
+
+IMAGE_BOOT_FILES = "zImage ${UBOOT_SCRIPT} ${KERNEL_DEVICETREE}"
+
+# wic default support
+WKS_FILE_DEPENDS ?= " \
+    e2fsprogs-native \
+    bmap-tools-native \
+"
