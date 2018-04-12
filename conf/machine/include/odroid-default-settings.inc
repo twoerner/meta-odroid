@@ -34,10 +34,7 @@ UBOOT_ROOTTYPE ?= "mmcblk1p"
 
 UBOOT_EXTRA_ENV ?= ""
 UBOOT_FILE_TITLE ?= "#"
-
 BOOT_PREFIX ?= ""
-
-IMAGE_ROOTFS_ALIGNMENT ?= "4096"
 
 MACHINE_FEATURES = "serial usbgadget usbhost vfat ext2 alsa screen"
 MACHINE_EXTRA_RRECOMMENDS += " kernel-modules kernel-devicetree"

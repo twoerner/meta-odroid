@@ -14,12 +14,6 @@ UBOOT_LOADADDRESS = "0x40007FC0"
 UBOOT_CONSOLE = "console=ttySAC2,115200"
 UBOOT_KERNEL_NAME = "zimage"
 
-#odroid-xu general
-UBOOT_B2_POS = "31"
-UBOOT_BIN_POS = "63"
-UBOOT_TZSW_POS = "2111"
-UBOOT_ENV_POS = "2625"
-
 WKS_FILE ?= "odroid_xu-u-boot.wks"
 
 IMAGE_FSTYPES_append = " wic wic.xz"
