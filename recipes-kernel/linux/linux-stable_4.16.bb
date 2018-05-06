@@ -6,7 +6,11 @@ SRCREV ?= "216f33936eaa006a8b4f5bb992592e34f6432fc2"
 
 require linux-stable.inc
 
+DEPENDS += "openssl-native util-linux-native"
+
 SRC_URI_append = " file://odroid.scc"
-SRC_URI_append_odroid-xu3 = " file://${O_KERNEL_CONFIG}/fb.cfg"
-SRC_URI_append_odroid-xu3-lite = " file://${O_KERNEL_CONFIG}/fb.cfg"
-SRC_URI_append_odroid-xu4 = " file://${O_KERNEL_CONFIG}/fb.cfg"
+
+
+do_configure_prepend() {
+    cp ${WORKDIR}/${O_KERNEL_CONFIG}/defconfig ${B}/.config
+}
