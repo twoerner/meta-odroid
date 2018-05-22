@@ -1,5 +1,5 @@
-LINUX_VERSION ?= "4.17-rc5"
-SRCREV ?= "67b8d5c7081221efa252e111cd52532ec6d4266f"
+LINUX_VERSION ?= "4.17-rc6"
+SRCREV ?= "771c577c23bac90597c685971d7297ea00f99d11"
 
 require linux-mainline.inc
 
