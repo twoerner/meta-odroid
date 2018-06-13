@@ -1,8 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-LINUX_VERSION ?= "4.14.44"
+LINUX_VERSION ?= "4.14.49"
 KBRANCH ?= "linux-4.14.y"
-SRCREV ?= "102b97d6241d938ac153193504a5936fc0be27ed"
+SRCREV ?= "70d7bbd9b504c1dde0dc44a469a513695d9cbdd6"
 
 require linux-stable.inc
 
