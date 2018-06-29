@@ -13,6 +13,7 @@ UBOOT_LOADADDR = "0x40007FC0"
 UBOOT_LOADADDRESS = "0x40007FC0"
 UBOOT_CONSOLE = "console=ttySAC2,115200"
 UBOOT_KERNEL_NAME = "zimage"
+UBOOT_VIDEO = "drm_kms_helper.edid_firmware=edid/1024x768.bin"
 
 WKS_FILE ?= "odroid_xu-u-boot.wks"
 
