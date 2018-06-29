@@ -7,13 +7,15 @@ DEFAULTTUNE = "cortexa15hf-neon"
 include conf/machine/include/tune-cortexa15.inc
 
 EXTRA_IMAGEDEPENDS += "secure-odroid"
+EXTRA_IMAGEDEPENDS += "${@bb.utils.contains("DISTRO_FEATURES", "x11", "odroid-edid", " ", d)}"
 
 UBOOT_FDT_LOADADDR = "0x40800000"
 UBOOT_LOADADDR = "0x40007FC0"
 UBOOT_LOADADDRESS = "0x40007FC0"
 UBOOT_CONSOLE = "console=ttySAC2,115200"
 UBOOT_KERNEL_NAME = "zimage"
-UBOOT_VIDEO = "drm_kms_helper.edid_firmware=edid/1024x768.bin"
+
+UBOOT_VIDEO = "${@bb.utils.contains("DISTRO_FEATURES", "x11", "drm_kms_helper.edid_firmware=edid/1024x768.bin", " ", d)}"
 
 WKS_FILE ?= "odroid_xu-u-boot.wks"
 
