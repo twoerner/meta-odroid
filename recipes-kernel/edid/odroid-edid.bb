@@ -15,4 +15,4 @@ do_install() {
 
 FILES_${PN} += "${nonarch_base_libdir}/firmware/edid/*"
 
-COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu3-lite|odroid-xu4)"
+COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu3-lite|odroid-xu4|odroid-c1|odroid-c2)"
