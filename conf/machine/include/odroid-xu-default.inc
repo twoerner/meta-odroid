@@ -11,9 +11,17 @@ UBOOT_LOADADDR = "0x40007FC0"
 UBOOT_LOADADDRESS = "0x40007FC0"
 UBOOT_CONSOLE = "console=ttySAC2,115200"
 UBOOT_KERNEL_NAME = "zImage"
+UBOOT_XTRA_CMDLINE = "usbhid.quirks=0x0eef:0x0005:0x0004"
 
 WKS_FILE ?= "odroid_xu-u-boot.wks"
 
-#IMAGE_BOOT_FILES = "zImage ${UBOOT_SCRIPT} ${KERNEL_DEVICETREE}"
 EXTRA_IMAGEDEPENDS += "secure-odroid"
 MACHINE_FEATURES_append = " alsa screen"
+
+PREFERRED_PROVIDER_virtual/egl = "mali-t62x"
+PREFERRED_PROVIDER_virtual/libgbm = "mali-t62x"
+PREFERRED_PROVIDER_virtual/libgles1 = "mali-t62x"
+PREFERRED_PROVIDER_virtual/libgles2 = "mali-t62x"
+PREFERRED_PROVIDER_virtual/libopencl = "mali-t62x"
+PREFERRED_PROVIDER_virtual/libgl = "mesa"
+PREFERRED_PROVIDER_virtual/mesa = "mesa"
