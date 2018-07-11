@@ -23,5 +23,25 @@ PREFERRED_PROVIDER_virtual/libgbm = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgles1 = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgles2 = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libopencl = "mali-t62x"
-PREFERRED_PROVIDER_virtual/libgl = "mesa"
-PREFERRED_PROVIDER_virtual/mesa = "mesa"
+PREFERRED_PROVIDER_virtual/libgl = "mesa-gl"
+PREFERRED_PROVIDER_virtual/mesa = "mesa-gl"
+
+XSERVER_OPENGL ?= " \
+    xf86-video-modesetting \
+    xserver-xorg-extension-glx \
+"
+
+XSERVER = " \
+    xserver-xorg \
+    xserver-xorg-module-libint10 \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${XSERVER_OPENGL}', 'xf86-video-fbdev', d)} \
+    xf86-video-armsoc \
+    xf86-input-evdev \
+    xf86-input-mouse \
+    xf86-input-keyboard \
+"
+
+MALI = "\
+    kernel-module-mali-t62x \
+    mali-t62x\
+"
