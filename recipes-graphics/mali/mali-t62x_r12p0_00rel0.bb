@@ -3,8 +3,6 @@ require mali.inc
 DESCRIPTION = "Mali t62x GPU Binaries for ODROID-xu3/4"
 LIC_FILES_CHKSUM = "file://END_USER_LICENCE_AGREEMENT.txt;md5=3918cc9836ad038c5a090a0280233eea"
 
-DEPENDS = "mesa"
-
 TYPE = "mali-t62x"
 
 BRANCH = "mali-t62x_r12p0_00rel0"
