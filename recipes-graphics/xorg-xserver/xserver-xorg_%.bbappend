@@ -1,2 +1,1 @@
-PACKAGECONFIG_remove_odroid-c2 = "glamor"
-
+require ${@bb.utils.contains('DISTRO_FEATURES', 'x11', '${BPN}_odroid.inc', '', d)}
