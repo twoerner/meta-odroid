@@ -27,3 +27,5 @@ CORE_IMAGE_BASE_INSTALL += " \
     xvideo-tests \
     mesa-demos \
 "
+
+COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu4|odroid-xu3-lite)"
