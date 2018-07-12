@@ -11,6 +11,21 @@ REQUIRED_DISTRO_FEATURES = "x11"
 
 MALI ?= ""
 
+XSERVER_OPENGL ?= " \
+    xf86-video-modesetting \
+    xserver-xorg-extension-glx \
+"
+
+XSERVER = " \
+    xserver-xorg \
+    xserver-xorg-module-libint10 \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${XSERVER_OPENGL}', 'xf86-video-fbdev', d)} \
+    xf86-video-armsoc \
+    xf86-input-evdev \
+    xf86-input-mouse \
+    xf86-input-keyboard \
+"
+
 CORE_IMAGE_BASE_INSTALL += " \
     ${XSERVER} \
     ${MALI} \
@@ -28,4 +43,4 @@ CORE_IMAGE_BASE_INSTALL += " \
     mesa-demos \
 "
 
-COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu4|odroid-xu3-lite)"
+COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-c2)"
