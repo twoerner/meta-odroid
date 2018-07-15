@@ -23,8 +23,8 @@ PREFERRED_PROVIDER_virtual/libgbm = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgles1 = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgles2 = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libopencl = "mali-t62x"
-PREFERRED_PROVIDER_virtual/libgl = "mesa-gl"
-PREFERRED_PROVIDER_virtual/mesa = "mesa-gl"
+PREFERRED_PROVIDER_virtual/libgl = "mesa"
+PREFERRED_PROVIDER_virtual/mesa = "mesa"
 
 MALI = "\
     kernel-module-mali-t62x \
