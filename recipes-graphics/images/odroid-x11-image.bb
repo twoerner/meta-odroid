@@ -15,6 +15,10 @@ XSERVER_OPENGL ?= " \
     xf86-video-modesetting \
     xserver-xorg-extension-glx \
 "
+VULKAN = "\
+    vulkan \
+    vulkan-demos \
+"
 
 XSERVER = " \
     xserver-xorg \
@@ -34,13 +38,13 @@ CORE_IMAGE_BASE_INSTALL += " \
     xserver-xorg-utils \
     kernel-modules \
     openbox \
-    mesa-gl \
+    mesa \
 "
 
 CORE_IMAGE_BASE_INSTALL += " \
     x11perf \
     xvideo-tests \
-    mesa-demos \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'mesa-demos', '', d)} \
 "
 
 COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-c2)"
