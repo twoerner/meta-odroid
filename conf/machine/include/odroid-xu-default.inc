@@ -30,3 +30,5 @@ MALI = "\
     kernel-module-mali-t62x \
     mali-t62x\
 "
+
+MESA = "mesa"

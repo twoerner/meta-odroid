@@ -28,17 +28,17 @@ XSERVER = " \
     xf86-input-evdev \
     xf86-input-mouse \
     xf86-input-keyboard \
+    xserver-common \
+    xorg-minimal-fonts \
+    xserver-xorg-utils \
 "
 
 CORE_IMAGE_BASE_INSTALL += " \
     ${XSERVER} \
     ${MALI} \
-    xserver-common \
-    xorg-minimal-fonts \
-    xserver-xorg-utils \
+    ${MESA} \
     kernel-modules \
     openbox \
-    mesa \
 "
 
 CORE_IMAGE_BASE_INSTALL += " \
