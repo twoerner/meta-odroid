@@ -10,6 +10,7 @@ inherit core-image distro_features_check extrausers
 REQUIRED_DISTRO_FEATURES = "x11"
 
 MALI ?= ""
+MESA ?= ""
 
 XSERVER_OPENGL ?= " \
     xf86-video-modesetting \
@@ -24,6 +25,7 @@ XSERVER = " \
     xserver-xorg \
     xserver-xorg-module-libint10 \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${XSERVER_OPENGL}', 'xf86-video-fbdev', d)} \
+    xf86-video-modesetting \
     xf86-video-armsoc \
     xf86-input-evdev \
     xf86-input-mouse \
@@ -36,9 +38,9 @@ XSERVER = " \
 CORE_IMAGE_BASE_INSTALL += " \
     ${XSERVER} \
     ${MALI} \
-    ${MESA} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${MESA} openbox', '', d)} \
     kernel-modules \
-    openbox \
+    odroid-edid \
 "
 
 CORE_IMAGE_BASE_INSTALL += " \
