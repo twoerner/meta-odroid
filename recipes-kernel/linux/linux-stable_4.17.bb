@@ -24,3 +24,5 @@ KMACHINE_odroid-xu3-lite = "odroid-xu3-lite"
 KMACHINE_odroid-xu4 = "odroid-xu4"
 KMACHINE_odroid-c2 = "odroid-c2"
 KMACHINE_odroid-c1 = "odroid-c1"
+
+KERNEL_FEATURES_append = " ${@bb.utils.contains("TUNE_FEATURES", "x11", " features/graphics/fb.scc", "" ,d)}"
