@@ -6,7 +6,7 @@ SRCREV ?= "506f6fba269679b77f5e7b71df07ef0bb3013a36"
 
 require linux-stable.inc
 
-SRCREV_meta ?= "d35642f0b65f7772a45e1457fd60de6d1bff8e58"
+SRCREV_meta ?= "08151dcf380d79a80eb4f47eb81d48f82e0e6b9e"
 
 SRC_URI_append = " git://github.com/akuster/yocto-kernel-cache;type=kmeta;name=meta;branch=stable-4.17;destsuffix=${KMETA}"
 SRC_URI_append = " file://odroid-kmeta;type=kmeta;name=odroid-kmeta;destsuffix=odroid-kmeta"
