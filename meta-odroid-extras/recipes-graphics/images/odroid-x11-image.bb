@@ -10,33 +10,13 @@ inherit core-image distro_features_check extrausers
 REQUIRED_DISTRO_FEATURES = "x11"
 
 MALI ?= ""
-MESA ?= ""
 
-XSERVER_OPENGL ?= " \
-    xf86-video-modesetting \
-    xserver-xorg-extension-glx \
-"
-VULKAN = "\
-    vulkan \
-    vulkan-demos \
-"
-
-XSERVER = " \
-    xserver-xorg \
-    xserver-xorg-module-libint10 \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${XSERVER_OPENGL}', 'xf86-video-fbdev', d)} \
-    xf86-video-modesetting \
-    xf86-video-armsoc \
-    xf86-input-evdev \
-    xf86-input-mouse \
-    xf86-input-keyboard \
-    xorg-minimal-fonts \
-    xserver-xorg-utils \
-"
+MESA ??= "mesa"
+MESA_odrodi-c2 = "mesa-gl"
 
 CORE_IMAGE_BASE_INSTALL += " \
     ${XSERVER} \
-    ${MALI} \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'mali', '${MALI} ', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${MESA} openbox', '', d)} \
     kernel-modules \
     odroid-edid \
