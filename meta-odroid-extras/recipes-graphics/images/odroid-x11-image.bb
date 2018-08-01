@@ -10,14 +10,12 @@ inherit core-image distro_features_check extrausers
 REQUIRED_DISTRO_FEATURES = "x11"
 
 MALI ?= ""
-
-MESA ??= "mesa"
-MESA_odrodi-c2 = "mesa-gl"
+VIRTUAL-RUNTIME_mesa ?= ""
 
 CORE_IMAGE_BASE_INSTALL += " \
     ${XSERVER} \
     ${@bb.utils.contains('MACHINE_FEATURES', 'mali', '${MALI} ', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${MESA} openbox', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${VIRTUAL-RUNTIME_mesa} openbox', '', d)} \
     kernel-modules \
     odroid-edid \
 "

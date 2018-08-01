@@ -18,13 +18,15 @@ WKS_FILE ?= "odroid_xu-u-boot.wks"
 EXTRA_IMAGEDEPENDS += "secure-odroid"
 MACHINE_FEATURES_append = " alsa screen"
 
+VIRTUAL-RUNTIME_mesa = "mesa" 
+
 PREFERRED_PROVIDER_virtual/egl = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgbm = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgles1 = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libgles2 = "mali-t62x"
 PREFERRED_PROVIDER_virtual/libopencl = "mali-t62x"
-PREFERRED_PROVIDER_virtual/libgl = "mesa"
-PREFERRED_PROVIDER_virtual/mesa = "mesa"
+PREFERRED_PROVIDER_virtual/libgl = "${VIRTUAL-RUNTIME_mesa}"
+PREFERRED_PROVIDER_virtual/mesa = "${VIRTUAL-RUNTIME_mesa}"
 
 MALI = "\
     kernel-module-mali-t62x \
