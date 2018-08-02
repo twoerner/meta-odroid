@@ -36,7 +36,7 @@ BOOT_PREFIX ?= "boot/"
 UBOOT_EXTRA_ENV ?= ""
 UBOOT_FILE_TITLE ?= "#"
 BOOT_PREFIX ?= ""
-UBOOT_VIDEO ?= "${@bb.utils.contains("DISTRO_FEATURES", "x11", "drm_kms_helper.edid_firmware=edid/1024x768.bin", " ", d)}"
+UBOOT_VIDEO ?= "${@bb.utils.contains("DISTRO_FEATURES", "x11", "drm.edid_firmware=edid/1024x768.bin", " ", d)}"
 
 IMAGE_BOOT_FILES ?= "${UBOOT_SCRIPT}"
 
