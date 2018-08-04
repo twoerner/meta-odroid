@@ -1,6 +1,6 @@
 SUMMARY = "Basic Odroid X11 graphics image"
 
-IMAGE_FEATURES += "splash debug-tweaks ssh-server-openssh tools-debug x11"
+IMAGE_FEATURES += "splash debug-tweaks ssh-server-openssh tools-debug x11-base"
 
 LICENSE = "MIT"
 
@@ -12,12 +12,14 @@ REQUIRED_DISTRO_FEATURES = "x11"
 MALI ?= ""
 VIRTUAL-RUNTIME_mesa ?= ""
 
-CORE_IMAGE_BASE_INSTALL += " \
+IMAGE_INSTALL = " \
+    ${CORE_IMAGE_BASE_INSTALL} \
     ${XSERVER} \
     ${@bb.utils.contains('MACHINE_FEATURES', 'mali', '${MALI} ', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${VIRTUAL-RUNTIME_mesa} openbox', '', d)} \
     kernel-modules \
     odroid-edid \
+    udev-extraconf \
 "
 
 CORE_IMAGE_BASE_INSTALL += " \
