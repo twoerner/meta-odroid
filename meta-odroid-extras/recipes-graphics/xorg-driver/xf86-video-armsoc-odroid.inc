@@ -24,3 +24,5 @@ do_install_append () {
 }
 
 FILES_{PN} += "${sysconfdir}/X11/xorg.conf.d"
+
+RDEPENDS_${PN} = " ${@bb.utils.contains('MACHINE_FEATURES', 'mali', '${MALI}', '', d)}"
