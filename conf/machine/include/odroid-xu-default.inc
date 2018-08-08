@@ -35,12 +35,12 @@ MALI = "\
 
 XSERVER ?= " \
     xserver-xorg \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'xserver-xorg-extension-glx', '', d)} \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'mali', 'xf86-driver-armsoc', '', d)} \
     xf86-video-fbdev \
     xf86-video-modesetting \
+"
+
+XSERVER_append = "  \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'xserver-xorg-extension-glx', '', d)} \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'mali', 'xf86-video-armsoc xserver-xorg-module-exa', '', d)} \
     xf86-input-evdev \
-    xf86-input-mouse \
-    xf86-input-keyboard \
-    xserver-xorg-module-libint10 \
 "
