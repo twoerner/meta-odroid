@@ -14,4 +14,4 @@ do_install_append () {
 INITSCRIPT_NAME = "odroid-vu7-plus"
 INITSCRIPT_PARAMS = "defaults"
 
-COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu3-lite|odroid-xu4)"
+COMPATIBLE_MACHINE = "(odroid-xu3|odroid-xu3-lite|odroid-xu4|odroid-c2)"
