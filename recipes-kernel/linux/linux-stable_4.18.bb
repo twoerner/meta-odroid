@@ -1,8 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-LINUX_VERSION ?= "4.18.5"
+LINUX_VERSION ?= "4.18.8"
 KBRANCH ?= "linux-4.18.y"
-SRCREV ?= "96158f3a9e7027056a2e35cff5212434294b3b34"
+SRCREV ?= "dfba61ec760efc578a3f3702e752b51ca1dfed52"
 
 require linux-stable.inc
 
@@ -28,4 +28,4 @@ KMACHINE_odroid-xu4 = "odroid-xu4"
 KMACHINE_odroid-c2 = "odroid-c2"
 KMACHINE_odroid-c1 = "odroid-c1"
 
-KERNEL_FEATURES_append = " ${@bb.utils.contains("DISTRO_FEATURES", "x11", " features/graphics/fb.scc", "" ,d)}"
+#KERNEL_FEATURES_append = " ${@bb.utils.contains("DISTRO_FEATURES", "x11", " features/graphics/fb.scc", "" ,d)}"
