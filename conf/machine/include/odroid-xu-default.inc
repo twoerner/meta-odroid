@@ -26,7 +26,7 @@ PREFERRED_PROVIDER_virtual/libgl = "${VIRTUAL-RUNTIME_mesa}"
 PREFERRED_PROVIDER_virtual/mesa = "${VIRTUAL-RUNTIME_mesa}"
 
 MALI = "\
-    kernel-module-mali-t62x \
+    kernel-module-mali-kbase \
     mali-t62x\
 "
 
