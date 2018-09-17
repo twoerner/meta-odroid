@@ -5,8 +5,6 @@ SRC_URI = "git://github.com/akuster/mali-kernel-modules.git;branch=${BRANCH}"
 
 SRCREV = "d8ca6433357b4bde4b12cc7715ac811c2c92d4e1"
 
-inherit module
-
 python() {
 	platform = d.getVar('MALI_DRIVER_PLATFORM', True)
 	if not platform:
@@ -26,3 +24,4 @@ python() {
 		d.appendVar('MALI_FLAGS', '-D' + c + ' ')
 		d.appendVar('MALI_KCONFIG', c + ' ')
 }
+export INSTALL_MOD_DIR="kernel/mali"
