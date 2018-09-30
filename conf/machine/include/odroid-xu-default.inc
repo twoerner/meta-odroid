@@ -30,7 +30,6 @@ XSERVER = " \
     xserver-xorg \
     xf86-video-fbdev \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'xserver-xorg-extension-glx', '', d)} \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'mali', 'xf86-video-armsoc xserver-xorg-module-exa', '', d)} \
     xf86-input-evdev \
     xf86-input-mouse \
     xf86-input-keyboard \
