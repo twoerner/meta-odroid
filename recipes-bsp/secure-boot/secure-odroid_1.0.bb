@@ -23,10 +23,18 @@ do_install_odroid-c2 () {
 }
 
 do_install () {
-	install -d ${D}/boot
-    	install -m 755  ${S}/bl1.bin.hardkernel ${D}/boot
-    	install -m 755  ${S}/bl2.bin.hardkernel ${D}/boot
-    	install -m 755  ${S}/tzsw.bin.hardkernel ${D}/boot
+    install -d ${D}/boot
+    install -m 755  ${S}/bl1.bin.hardkernel ${D}/boot
+    install -m 755  ${S}/bl2.bin.hardkernel ${D}/boot
+    install -m 755  ${S}/tzsw.bin.hardkernel ${D}/boot
+
+    # if we want to support emmc booting
+    if [ -n "${@bb.utils.contains('MACHINE_FEATURES', 'emmc', 'emmc', '', d)}" ]; then
+        install -d ${D}/emmc
+        install -m 755  ${S}/bl1.bin.hardkernel ${D}/emmc
+        install -m 755  ${S}/bl2.bin.hardkernel ${D}/emmc
+        install -m 755  ${S}/tzsw.bin.hardkernel ${D}/emmc
+    fi
 }
 
 inherit deploy
@@ -35,6 +43,7 @@ do_deploy_odroid-c2 () {
     install -d ${DEPLOYDIR}
     install -m 755  ${S}/odroid-c2/bl1.bin.hardkernel ${DEPLOYDIR}
 }
+
 do_deploy () {
     install -d ${DEPLOYDIR}
     install -m 755  ${S}/bl1.bin.hardkernel ${DEPLOYDIR}
@@ -42,7 +51,10 @@ do_deploy () {
     install -m 755  ${S}/tzsw.bin.hardkernel ${DEPLOYDIR}
 }
 
+PACKAGES += "${@bb.utils.contains('MACHINE_FEATURES', 'emmc', '${PN}-emmc', '', d)}"
+
 FILES_${PN} = "/boot"
+FILES_${PN}-emmc = "/emmc"
 
 addtask deploy before do_build after do_compile
 

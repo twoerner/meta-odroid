@@ -28,6 +28,18 @@ do_compile_append_odroid-c2 () {
         dd if=${B}/${UBOOT_BINARY}.tmp of=${B}/${UBOOT_BINARY} bs=512 skip=96
 }
 
+do_install_append () {
+    if [ -n "${@bb.utils.contains('MACHINE_FEATURES', 'emmc', 'emmc', '', d)}" ]; then
+         install -d ${D}/emmc
+         install -m 644 ${B}/${UBOOT_BINARY} ${D}/emmc/${UBOOT_IMAGE}
+         ln -sf ${UBOOT_IMAGE} ${D}/emmc/${UBOOT_BINARY}
+    fi
+} 
+
+PACKAGES += "${@bb.utils.contains('MACHINE_FEATURES', 'emmc', '${PN}-emmc', '', d)}"
+
+FILES_${PN}-emmc = "/emmc"
+
 COMPATIBLE_MACHINE_odroid-c2  = "odroid-c2"
 COMPATIBLE_MACHINE_odroid-xu3  = "odroid-xu3"
 COMPATIBLE_MACHINE_odroid-xu4  = "odroid-xu4"
