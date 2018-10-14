@@ -53,7 +53,7 @@ UBOOT_FDT_LOADADDR ?= ""
 UBOOT_BOOTARGS ?= "${console} root=/dev/${roottype}${rootpart} rw rootwait ${video} ${extra_cmdline}"
 UBOOT_KERNEL_NAME ?= ""
 UBOOT_INITRD_NAME ?= ""
-UBOOT_INITRD_ADDR ?= ""
+UBOOT_INITRD_ADDR ?= "-"
 
 UBOOT_CONSOLE ?= ""
 UBOOT_BOOTDEV  ?= "0"
@@ -66,7 +66,7 @@ UBOOT_LOAD_CMD ?= "load"
 UBOOT_EXTRA_ENV ?= ""
 UBOOT_FILE_TITLE ?= "#"
 UBOOT_DELAY ?= ""
-UBOOT_AUTOBOOT ?= ""
+UBOOT_AUTOBOOT ?= "3"
 UBOOT_VIDEO ?= ""
 UBOOT_XTRA_CMDLINE ?= ""
 
@@ -138,8 +138,6 @@ python create_uboot_boot_txt() {
 
             # initrd
             initrdaddr = localdata.getVar('UBOOT_INITRD_ADDR')
-            if initrdaddr:
-                cfgfile.write('setenv initrdaddr  %s\n' % initrdaddr)
 
             initrd = localdata.getVar('UBOOT_INITRD_NAME')
             if initrd:
@@ -169,24 +167,18 @@ python create_uboot_boot_txt() {
                 for e in uboot_extra_envs:
                     cfgfile.write('%s\n' % e)
 
-
-            cfgfile.write('setenv loaddtb     \"${loadcmd} ${boottype} ${bootdev}:${bootpart} ${fdtaddr} ${bootprefix}${fdtfile}\"\n')
-            cfgfile.write('setenv loadkernel  \"${loadcmd} ${boottype} ${bootdev}:${bootpart} ${kerneladdr} ${bootprefix}${kernelname}\"\n')
-
-            if initrd:
-                cfgfile.write('setenv loadinitrd  \"${loadcmd} ${boottype} ${bootdev}:${bootpart} ${initrdaddr} ${bootprefix}${initrdname}"\n')
-
             bootargs = localdata.getVar('UBOOT_BOOTARGS')
-            cfgfile.write('setenv bootargs \" %s \"\n' % bootargs)
+            if bootargs:
+                cfgfile.write('setenv bootargs \" %s \"\n' % bootargs)
 
-            cfgfile.write('run loaddtb\n')
-            cfgfile.write('run loadkernel\n')
 
             if initrd:
-                cfgfile.write('run loadinitrd\n')
-                cfgfile.write('%s %s %s %s" %(imgbootcmd, kerneladdr, initrd_addr, fdtaddr))\n')
-            else:
-                cfgfile.write('%s %s - %s\n' % (imgbootcmd, kerneladdr, fdtaddr))
+                cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, initrdaddr, bootprefix, initrdname))
+
+            cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, fdtaddr,bootprefix, fdtfile))
+            cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, kerneladdr, bootprefix, kernelname))
+
+            cfgfile.write("%s %s %s %s\n" % (imgbootcmd, kerneladdr, initrdaddr, fdtaddr))
 
     except OSError:
         bb.fatal('Unable to open %s' % (cfile))
