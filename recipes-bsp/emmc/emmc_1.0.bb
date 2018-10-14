@@ -15,7 +15,7 @@ do_compile[noexec] = "1"
 SRC_URI = "file://emmc.tmp"
 EMMC_DEVICE = "/dev/mmcblk0boot0"
 EMMC_ROOTFS = "/dev/mmcblk0"
-EMMC_MNT = "/emmc/mnt_emmc"
+EMMC_MNT = "/mnt_emmc"
 
 CLEANBROKEN = "1"
 
@@ -36,6 +36,10 @@ do_configure () {
     echo "sleep 3" >> ${B}/emme.sh
     echo "mount -t ext4 ${EMMC_ROOTFS}p2 ${EMMC_MNT}" >> ${B}/emme.sh
     echo "rsync -avP --exclude='/dev' --exclude='/proc' --exclude='/sys' --exclude='/emmc' --exclude='/run' / ${EMMC_MNT}" >> ${B}/emmc.sh
+    echo "umount  ${EMMC_MNT}" >> ${B}/emme.sh
+    echo "sleep 2" >> ${B}/emme.sh
+
+    echo "mount -t fat32 ${EMMC_ROOTFS}p1 ${EMMC_MNT}" >> ${B}/emme.sh
     echo "fi"  >> ${B}/emmc.sh
 
 }

@@ -33,6 +33,7 @@ do_install_append () {
          install -d ${D}/emmc
          install -m 644 ${B}/${UBOOT_BINARY} ${D}/emmc/${UBOOT_IMAGE}
          ln -sf ${UBOOT_IMAGE} ${D}/emmc/${UBOOT_BINARY}
+         install -m 644 ${WORKDIR}/boot.scr ${D}/emmc
     fi
 } 
 
