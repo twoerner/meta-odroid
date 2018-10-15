@@ -62,7 +62,7 @@ MACHINE_FEATURES_append = " mali serial usbgadget usbhost vfat ext2"
 MACHINE_FEATURES_BACKFILL_CONSIDERED = "rtc"
 
 EXTRA_IMAGEDEPENDS_append = " u-boot secure-odroid"
-EXTRA_IMAGEDEPENDS_append = "${@bb.utils.contains("DISTRO_FEATURES", "x11", " odroid-edid", " ", d)}"
+EXTRA_IMAGEDEPENDS_append = " ${@bb.utils.contains("DISTRO_FEATURES", "x11", " odroid-edid", " ", d)}"
 IMAGE_INSTALL_append = " kernel-image kernel-modules kernel-devicetree"
 
 IMAGE_FSTYPES ?= " ext4 wic wic.xz"
