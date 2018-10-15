@@ -50,7 +50,8 @@ UBOOT_ENV_CONFIG ?= "${B}/${UBOOT_ENV}.txt"
 
 UBOOT_LOADADDRESS ?= ""
 UBOOT_FDT_LOADADDR ?= ""
-UBOOT_BOOTARGS ?= "${console} root=/dev/${roottype}${rootpart} rw rootwait ${video} ${extra_cmdline}"
+UBOOT_ROOTARGS ?= "root=/dev/${roottype}${rootpart} rw rootwait"
+UBOOT_BOOTARGS ?= "${console} ${root} rw rootwait ${video} ${extra_cmdline}"
 UBOOT_KERNEL_NAME ?= ""
 UBOOT_INITRD_NAME ?= ""
 UBOOT_INITRD_ADDR ?= "-"
@@ -69,6 +70,7 @@ UBOOT_DELAY ?= ""
 UBOOT_AUTOBOOT ?= "3"
 UBOOT_VIDEO ?= ""
 UBOOT_XTRA_CMDLINE ?= ""
+UBOOT_MULTI_BOOT = "1"
 
 python create_uboot_boot_txt() {
     if d.getVar("USE_BOOTSCR") != "1":
@@ -167,6 +169,10 @@ python create_uboot_boot_txt() {
                 for e in uboot_extra_envs:
                     cfgfile.write('%s\n' % e)
 
+            rootargs = localdata.getVar('UBOOT_ROOTARGS')
+            if rootargs:
+                cfgfile.write('setenv root \" %s \"\n' % rootargs)
+
             bootargs = localdata.getVar('UBOOT_BOOTARGS')
             if bootargs:
                 cfgfile.write('setenv bootargs \" %s \"\n' % bootargs)
@@ -175,8 +181,19 @@ python create_uboot_boot_txt() {
             if initrd:
                 cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, initrdaddr, bootprefix, initrdname))
 
-            cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, fdtaddr,bootprefix, fdtfile))
-            cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, kerneladdr, bootprefix, kernelname))
+            if d.getVar("UBOOT_MULTI_BOOT") == "1":
+                cfgfile.write('setenv root \" root=/dev/%s%s rw rootwait\"\n' % ("mmcblk0p", 2))
+                cfgfile.write("if %s %s %s:%s %s %s%s; then\n" % (loadcmd, boottype, bootdev, 0, kerneladdr, bootprefix, kernelname))
+                cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, fdtaddr,bootprefix, fdtfile))
+                cfgfile.write("fi\n")
+
+                cfgfile.write("if %s %s %s:%s %s %s%s; then\n" % (loadcmd, boottype, bootdev, bootpart, kerneladdr, bootprefix, kernelname))
+                cfgfile.write('setenv root \" root=/dev/%s%s rw rootwait\"\n' % ("mmcblk1p", 2))
+                cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, fdtaddr,bootprefix, fdtfile))
+                cfgfile.write("fi\n")
+            else:
+                cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, fdtaddr,bootprefix, fdtfile))
+                cfgfile.write("%s %s %s:%s %s %s%s\n" % (loadcmd, boottype, bootdev, bootpart, kerneladdr, bootprefix, kernelname))
 
             cfgfile.write("%s %s %s %s\n" % (imgbootcmd, kerneladdr, initrdaddr, fdtaddr))
 
