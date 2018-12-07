@@ -12,6 +12,7 @@ SRC_URI_append = " git://git.yoctoproject.org/yocto-kernel-cache;type=kmeta;name
 SRC_URI_append = " file://odroid-kmeta;type=kmeta;name=odroid-kmeta;destsuffix=odroid-kmeta"
 
 SRC_URI_append = " file://odroid.scc"
+SRC_URI_append = " file://ilp32/arm64_ilp32.scc"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
