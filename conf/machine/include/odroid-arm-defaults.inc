@@ -43,4 +43,4 @@ EXTRA_IMAGEDEPENDS_append = " u-boot secure-odroid"
 EXTRA_IMAGEDEPENDS_append = " ${@bb.utils.contains("DISTRO_FEATURES", "x11", " odroid-edid", " ", d)}"
 IMAGE_INSTALL_append = " kernel-devicetree"
 
-IMAGE_CLASSES += "image_types_odroid"
+IMAGE_CLASSES += "image_types_nfs image_types_odroid"
