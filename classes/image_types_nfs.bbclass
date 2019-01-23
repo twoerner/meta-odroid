@@ -1,5 +1,17 @@
 #
+# NFS_LOCATION: 
+#   local: NFS mount on this machine
+#   remote: NFS exported from a remote system not mounted on this system
 #
+# NFS_EXPORT_DIR - location where to copy things to
+# NFS_SERVERIP - your remote NFS server host
+# NFS_SERVERIP_USER - User account on remote NFS server
+# NFS_SERVERIP_PSWDFILE - Password used for NFS_SERVERIP_USER on NFS_SERVERIP
+# NFS_MACHINE_NAME - main filename used as the common mounted dir from machine
+#
+# NFS_DEST_DIR -  Name of where new builds are copied too.
+#
+# SSHPASS - where to find the sshpass binary, defaults to the systme one
 #
 #
 USING_NFS = "${@bb.utils.contains_any('IMAGE_FSTYPES', 'nfs ', '1', '', d)}"
