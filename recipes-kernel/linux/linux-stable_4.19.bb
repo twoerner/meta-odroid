@@ -1,12 +1,12 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-LINUX_VERSION ?= "4.19.24"
+LINUX_VERSION ?= "4.19.25"
 KBRANCH ?= "linux-4.19.y"
-SRCREV ?= "f287634fe3211277f078092bf57dc2b2a2e38dda"
+SRCREV ?= "eb1e5b1a64ee6526a7cdb22357dcafc6ba643fbe"
 
 require linux-stable.inc
 
-SRCREV_meta ?= "ced14887c323f1cb6b3befe2b29e471e8fee1bc6"
+SRCREV_meta ?= "83d017da0cc6c84b0167eafcf2811d0717c35b86"
 
 SRC_URI_append = " git://git.yoctoproject.org/yocto-kernel-cache;type=kmeta;name=meta;branch=yocto-4.19;destsuffix=${KMETA}"
 SRC_URI_append = " file://odroid-kmeta;type=kmeta;name=odroid-kmeta;destsuffix=odroid-kmeta"
