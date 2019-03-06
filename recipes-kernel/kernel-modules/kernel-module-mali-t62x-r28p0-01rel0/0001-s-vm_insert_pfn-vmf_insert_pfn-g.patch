@@ -1,0 +1,40 @@
+From 9d98469922bd74342a75a5e3479de491bb5fcd00 Mon Sep 17 00:00:00 2001
+From: Lyude Paul <lyude@redhat.com>
+Date: Fri, 23 Nov 2018 17:06:29 -0500
+Subject: [PATCH] s/vm_insert_pfn/vmf_insert_pfn/g
+
+This was removed in 4.20, replacement is identical sans the different
+function name
+---
+
+Upstream-Status: Backport
+Signed-off-by: Armin kuster <akuster808@gmail.com>
+
+ .../kernel/drivers/gpu/arm/midgard/mali_kbase_mem_linux.c     | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/driver/product/kernel/drivers/gpu/arm/midgard/mali_kbase_mem_linux.c b/driver/product/kernel/drivers/gpu/arm/midgard/mali_kbase_mem_linux.c
+index 1299353..35b1de7 100644
+--- a/driver/product/kernel/drivers/gpu/arm/midgard/mali_kbase_mem_linux.c
++++ b/driver/product/kernel/drivers/gpu/arm/midgard/mali_kbase_mem_linux.c
+@@ -1752,7 +1752,7 @@ static int kbase_cpu_vm_fault(struct vm_fault *vmf)
+ 	addr = (pgoff_t)(vmf->address >> PAGE_SHIFT);
+ #endif
+ 	while (i < map->alloc->nents && (addr < vma->vm_end >> PAGE_SHIFT)) {
+-		int ret = vm_insert_pfn(vma, addr << PAGE_SHIFT,
++		int ret = vmf_insert_pfn(vma, addr << PAGE_SHIFT,
+ 		    PFN_DOWN(as_phys_addr_t(map->alloc->pages[i])));
+ 		if (ret < 0 && ret != -EBUSY)
+ 			goto locked_bad_fault;
+@@ -1841,7 +1841,7 @@ static int kbase_cpu_mmap(struct kbase_context *kctx,
+ 			phys_addr_t phys;
+ 
+ 			phys = as_phys_addr_t(page_array[i + start_off]);
+-			err = vm_insert_pfn(vma, addr, PFN_DOWN(phys));
++			err = vmf_insert_pfn(vma, addr, PFN_DOWN(phys));
+ 			if (WARN_ON(err))
+ 				break;
+ 
+-- 
+2.17.1
+

@@ -1,9 +1,11 @@
 require kernel-module-mali-midgard.inc
 
-BRANCH="TX011-SW-99002-r26p0-01rel0"
-SRC_URI = "git://github.com/akuster/mali-kernel-modules.git;branch=${BRANCH}"
+BRANCH="TX011-SW-99002-r28p0-01rel0"
+SRC_URI = "git://github.com/akuster/mali-kernel-modules.git;branch=${BRANCH} \
+           file://fix_kbase_gpuprosp_for_5.0_kernel.patch \
+           file://0001-s-vm_insert_pfn-vmf_insert_pfn-g.patch"
 
-SRCREV = "d8ca6433357b4bde4b12cc7715ac811c2c92d4e1"
+SRCREV = "2512258bd03d9660f03168c04593b9feda47ba02"
 
 python __anonymous() {
     platform = d.getVar('MALI_DRIVER_PLATFORM', True)
