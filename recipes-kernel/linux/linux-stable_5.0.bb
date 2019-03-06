@@ -6,9 +6,9 @@ SRCREV ?= "1c163f4c7b3f621efff9b28a47abb36f7378d783"
 
 require linux-stable.inc
 
-SRCREV_meta ?= "ced14887c323f1cb6b3befe2b29e471e8fee1bc6"
+SRCREV_meta ?= "8ae7073a934d80c4f4b808bc01884777454aae8f"
 
-SRC_URI_append = " git://git.yoctoproject.org/yocto-kernel-cache;type=kmeta;name=meta;branch=yocto-4.19;destsuffix=${KMETA}"
+SRC_URI_append = " git://git.yoctoproject.org/yocto-kernel-cache;type=kmeta;name=meta;branch=yocto-5.0;destsuffix=${KMETA}"
 SRC_URI_append = " file://odroid-kmeta;type=kmeta;name=odroid-kmeta;destsuffix=odroid-kmeta"
 
 SRC_URI_append = " file://odroid/odroid.scc"
