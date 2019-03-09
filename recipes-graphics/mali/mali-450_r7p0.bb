@@ -22,7 +22,9 @@ do_install () {
 	# Create MALI manifest
 	install -m 755 -d ${D}${libdir} ${D}${libdir}/pkgconfig ${D}${includedir}
 	cp -av --no-preserve=ownership ${S}/lib/pkgconfig/* ${D}${libdir}/pkgconfig
-	cp -av --no-preserve=ownership ${S}/include/{EGL,GLES*,KHR} ${D}${includedir}
+	cp -av --no-preserve=ownership ${S}/include/EGL ${D}${includedir}
+	cp -av --no-preserve=ownership ${S}/include/GLES* ${D}${includedir}
+	cp -av --no-preserve=ownership ${S}/include/KHR ${D}${includedir}
 	if [ "${USE_X11}" = "yes" ]; then
 		cp -av --no-preserve=ownership ${S}/lib/arm64/r7p0/m450-X/*.so ${D}${libdir}
 		cp -av --no-preserve=ownership ${S}/include/EGL_platform/platform_x11/* ${D}${includedir}/EGL
@@ -53,4 +55,10 @@ do_install () {
 RDEPENDS_${PN} += "kernel-module-mali-utgard libffi"
 RDEPENDS_${PN} += "${@bb.utils.contains("DISTRO_FEATURES", "wayland", "wayland", " ", d)}"
 RDEPENDS_${PN}_remove_odroid-c2-hardkernel = "kernel-module-mali-utgard"
-COMPATIBLE_MACHINE = "odroid-c2"
+COMPATIBLE_MACHINE_class-target = "odroid-c2"
+
+INHIBIT_SYSROOT_STRIP = "1"
+ 
+RDEPENDS_${PN}_class-native = ""
+  
+BBCLASSEXTEND = "native nativesdk"
