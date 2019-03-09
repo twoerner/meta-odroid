@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://driver/src/devicedrv/mali/readme.txt;md5=92d15b487d20
 BRANCH="DX910-SW-99002-r9p0-01rel0_meson_gx"
 SRC_URI = "git://github.com/superna9999/meson_gx_mali_450.git;branch=${BRANCH}"
 
-SRCREV = "2c9bd8ae57c0648045f7eaa48c120ec78db85d10"
+SRCREV = "eb2c846fd78058def70b492f55e4c52fd7254da7"
 
 S = "${WORKDIR}/git"
 
