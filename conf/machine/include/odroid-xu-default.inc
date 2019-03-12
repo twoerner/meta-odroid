@@ -15,6 +15,7 @@ UBOOT_USB_NET = "1"
 WKS_FILE ?= "odroid_xu-u-boot.wks"
 
 MACHINE_FEATURES_append = " alsa screen"
+MACHINE_FEATURES_remove = " ${@bb.utils.contains("TCLIBC", "musl", "mali", "", d)}"
 
 VIRTUAL-RUNTIME_mesa = "mesa"
 PREFERRED_PROVIDER_virtual/gpu = "mali-t62x"
