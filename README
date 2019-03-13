@@ -40,5 +40,3 @@ ODROID-C1 support:
 Short history:
 Based on meta-odroid from MarkusEich <markus.eich@gmail.com>,
 which was based on meta-odroid by Reinhard Tartler <siretart@tauware.de>
-
-[![Build Status](https://travis-ci.com/akuster/meta-odroid.svg?branch=master)](https://travis-ci.com/akuster/meta-odroid)
