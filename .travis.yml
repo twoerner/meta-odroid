@@ -42,7 +42,6 @@ before_script:
   - git clone $(pwd) /tmp/build_env/$(basename $(pwd))
 
 script:
-  - PATH="/usr/sbin:/usr/bin:/sbin:/bin" . /tmp/build_env/oe-init-build-env && echo "BBLAYERS +=\"/tmp/build_env/meta-odroid\"" >> $(pwd)/conf/bblayers.conf  && MACHINE=odroid-c2 bitbake core-image-minimal | tee -a world.log
-  - PATH="/usr/sbin:/usr/bin:/sbin:/bin" . /tmp/build_env/oe-init-build-env && echo "BBLAYERS +=\"/tmp/build_env/meta-odroid\"" >> $(pwd)/conf/bblayers.conf && MACHINE=odroid-xu3-lite bitbake core-image-minimal | tee -a world.log
+  - PATH="/usr/sbin:/usr/bin:/sbin:/bin" . /tmp/build_env/oe-init-build-env && echo "BBLAYERS +=\"/tmp/build_env/meta-odroid\"" >> $(pwd)/conf/bblayers.conf  && echo "SSTATE_MIRRORS ?= \"file://.* http://sstate.yoctoproject.org/PATH/\" " >> $(pwd)/conf/local.conf && echo "SOURCE_MIRROR_URL ?= \"http://downloads.yoctoproject.org/mirror/sources/\" " >> $(pwd)/conf/local.conf && MACHINE=odroid-c2 bitbake core-image-minimal | tee -a world.log
 
 
