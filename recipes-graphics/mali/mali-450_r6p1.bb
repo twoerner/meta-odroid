@@ -28,6 +28,8 @@ do_install () {
 	fi
 	patchelf --set-soname libMali.so ${D}${libdir}/libMali.so
 	ln -sf libMali.so ${D}/${libdir}/libOpenCL.so
+        # conflict with mase-gl
+        rm -fr ${D}${includedir}/KHR
 }
 
 RDEPENDS_${PN} = "kernel-module-mali-utgard"
