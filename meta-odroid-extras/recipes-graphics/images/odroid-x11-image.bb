@@ -10,12 +10,14 @@ inherit core-image distro_features_check extrausers
 REQUIRED_DISTRO_FEATURES = "x11"
 
 VIRTUAL-RUNTIME_mesa ?= ""
-VIRTUAL-RUNTIME_graphical_init_manager = ""
+VIRTUAL-RUNTIME_graphical_init_manager ?= ""
+
+MESA_PKGS ?= "libgl-mesa mesa-megadriver libglapi"
 
 IMAGE_INSTALL = " \
     ${CORE_IMAGE_BASE_INSTALL} \
     ${XSERVER} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${VIRTUAL-RUNTIME_mesa} ', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', '${MESA_PKGS}', '', d)} \
     kernel-modules \
     odroid-edid \
     udev-extraconf \
