@@ -8,6 +8,20 @@
 #
 # Uploading NETBOOT aritfacts can be run automatically each time an image is built if you set
 # NETBOOT_AUTO = "1"
+#
+# NETBOOT_LOCATION:
+#   local: NETBOOT mount on this machine
+#   remote: NETBOOT exported from a remote system not mounted on this system
+#
+# NETBOOT_EXPORT_DIR - location where to copy things to
+# NETBOOT_SERVERIP - your remote NETBOOT server host
+# NETBOOT_SERVERIP_USER - User account on remote NETBOOT server
+# NETBOOT_SERVERIP_PSWDFILE - Password used for NETBOOT_SERVERIP_USER on NETBOOT_SERVERIP
+# NETBOOT_MACHINE_NAME - main filename used as the common mounted dir from machine
+#
+# NETBOOT_DEST_DIR -  Name of where new builds are copied too.
+#
+# SSHPASS - where to find the sshpass binary, defaults to the systme one
 
 NETBOOT_AUTO ??= "0"
 
