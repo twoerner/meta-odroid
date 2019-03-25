@@ -1,7 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-LINUX_VERSION ?= "4.19.30"
-SRCREV ?= "7794d352260604f02e7d446e632af2ca7fe8dda6"
+LINUX_VERSION ?= "4.19.31"
+SRCREV ?= "a2cddfe2ce6e9108341820fff8af46713685b2cb"
 SRCREV_meta ?= "b173a1b0a218f2bebc28251ef08ee592652b6bc0"
 
 require linux-stable.inc
