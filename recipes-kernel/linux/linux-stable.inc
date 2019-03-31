@@ -28,5 +28,6 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 SRC_URI_append = " git://git.yoctoproject.org/yocto-kernel-cache;type=kmeta;name=meta;branch=${MBRANCH};destsuffix=${KMETA}"
 SRC_URI_append = " file://odroid-kmeta;type=kmeta;name=odroid-kmeta;destsuffix=odroid-kmeta"
 SRC_URI_append = " file://odroid/odroid.scc"
+KERNEL_EXTRA_FEATURES_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'apparmor', 'features/security/apparmor.scc', '', d)}"
 
 COMPATIBLE_MACHINE = "(odroid-c1|odroid-c2|odroid-xu3|odroid-xu4|odroid-xu3-lite|odroid-hc1|odroid-h2)"
