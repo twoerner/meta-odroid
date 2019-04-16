@@ -13,7 +13,7 @@ require recipes-kernel/linux/linux-yocto.inc
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
-KCONF_BSP_AUDIT_LEVEL = "0"
+KCONF_BSP_AUDIT_LEVEL = "2"
 DEPENDS += "openssl-native util-linux-native"
 
 KMETA = "kernel-meta"
