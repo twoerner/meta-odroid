@@ -5,16 +5,16 @@ Subject: [PATCH] Add default bootargs
 ---
 Signed-off-by: Khem Raj <raj.khem@gmail.com>
 Upstream-Status: Pending
-Rebase for 2019.01
+Rebase for 2019.04
 
 Index: git/include/configs/meson64.h
 ===================================================================
 --- git.orig/include/configs/meson64.h
 +++ git/include/configs/meson64.h
-@@ -59,6 +59,7 @@
- 
- #ifndef CONFIG_EXTRA_ENV_SETTINGS
- #define CONFIG_EXTRA_ENV_SETTINGS \
+@@ -82,6 +82,7 @@
+ 	"stdin=" STDIN_CFG "\0" \
+ 	"stdout=" STDOUT_CFG "\0" \
+ 	"stderr=" STDOUT_CFG "\0" \
 +	"bootargs=console=ttyAML0,115200 rootfstype=ext4 rootwait\0" \
  	"fdt_addr_r=0x08008000\0" \
  	"scriptaddr=0x08000000\0" \
