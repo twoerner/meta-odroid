@@ -43,7 +43,6 @@ CORE_IMAGE_BASE_INSTALL += " \
     ${MALI} \
     ${GTS} \
     ${QT5} \
-    xserver-common \
     xorg-minimal-fonts \
     xserver-xorg-utils \
     kernel-modules \
@@ -55,7 +54,6 @@ CORE_IMAGE_BASE_INSTALL += " \
 
 CORE_IMAGE_BASE_INSTALL += " \
     x11perf \
-    xvideo-tests \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'mesa-demos', '', d)} \
 "
 
