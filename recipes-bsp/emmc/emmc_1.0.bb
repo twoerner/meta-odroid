@@ -56,7 +56,7 @@ do_install () {
 
 FILES_${PN} = "/emmc"
 
-RDEPENDS_${PN} = "u-boot-emmc secure-odroid-emmc coreutils rsync e2fsprogs parted dosfstools"
+RDEPENDS_${PN} = "coreutils rsync e2fsprogs parted dosfstools"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
