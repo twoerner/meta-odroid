@@ -29,6 +29,6 @@ PREFERRED_PROVIDER_virtual/libgl = "${VIRTUAL-RUNTIME_mesa}"
 PREFERRED_PROVIDER_virtual/mesa = "${VIRTUAL-RUNTIME_mesa}"
 
 XSERVER_append = " \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'mali', 'xf86-video-armsoc', '', d)} \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'x11 mali', 'xf86-video-armsoc', '', d)} \
 "
 
