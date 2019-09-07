@@ -1,9 +1,0 @@
-sudo apt-get install nfs-kernel-server nfs-common
-
-sudo mkdir /srv/oe
-sudo chmod 775 /srv/oe
-
-add to /etc/exportfs
-/srv/oe *(rw,no_root_squash,insecure,no_all_squash,no_subtree_check)
-
-sudo apt install sshpass
