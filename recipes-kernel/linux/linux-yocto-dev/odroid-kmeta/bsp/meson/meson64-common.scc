@@ -1,0 +1,10 @@
+define KFEATURE_DESCRIPTION "Devices/drivers commonly used on Amlogic Meson systems/boards"
+
+kconf hardware meson64-common.cfg
+
+include features/mmc/mmc-block.scc
+include features/i2c/i2c.scc
+include features/usb/uhci-hcd.scc
+include features/spi/spi.scc
+include features/input/input.scc
+
